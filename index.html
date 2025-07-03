@@ -1,1 +1,126 @@
-test
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>北京香草人科技有限公司</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.5rem;
+    }
+    header p {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+    }
+    section {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .intro {
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .services {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+    .service {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      flex: 1 1 250px;
+      min-width: 250px;
+      transition: transform 0.3s ease;
+    }
+    .service:hover {
+      transform: translateY(-5px);
+    }
+    .service h3 {
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+    }
+    footer {
+      background: #34495e;
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+    }
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .services {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>北京香草人科技有限公司</h1>
+    <p>专注智能科技与数字化解决方案</p>
+  </header>
+
+  <section class="intro">
+    <p>我们致力于为企业提供高效、智能、可扩展的技术解决方案。从软件开发到系统集成，香草人科技始终以客户为中心，推动数字化转型。</p>
+  </section>
+
+  <section>
+    <h2 style="text-align:center; margin-bottom: 2rem;">我们的服务</h2>
+    <div class="services">
+      <div class="service">
+        <h3>定制软件开发</h3>
+        <p>根据企业需求量身打造高质量的Web和移动端应用。</p>
+      </div>
+      <div class="service">
+        <h3>人工智能解决方案</h3>
+        <p>结合AI技术，提升业务效率，实现智能化运营。</p>
+      </div>
+      <div class="service">
+        <h3>数据分析与可视化</h3>
+        <p>帮助企业挖掘数据价值，辅助决策制定。</p>
+      </div>
+      <div class="service">
+        <h3>系统集成与运维</h3>
+        <p>提供稳定可靠的IT基础设施集成与维护服务。</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 北京香草人科技有限公司 | 保留所有权利</p>
+    <p>联系邮箱：<a href="mailto:contact@xiangcaoren.com">contact@xiangcaoren.com</a></p>
+  </footer>
+
+</body>
+</html>
