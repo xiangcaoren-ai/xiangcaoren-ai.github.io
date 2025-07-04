@@ -199,6 +199,38 @@
       /* 如logo为深色可加阴影增强立体感 */
       box-shadow: 0 2px 12px rgba(44,62,80,0.08);
     }
+    .contact-full {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .contact-row {
+      width: 100%;
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      align-items: stretch;
+      margin-bottom: 0;
+    }
+    .contact-card {
+      background: var(--primary);
+      color: #fff;
+      border-radius: 16px;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      width: 50%;
+      box-shadow: 0 2px 12px rgba(44,62,80,0.10);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+    @media (max-width: 900px) {
+      .contact-row { flex-direction: column; gap: 1.5rem; }
+      .contact-card { width: 100%; }
+      .contact-full { padding-left: 1.2rem !important; padding-right: 1.2rem !important; }
+    }
   </style>
 </head>
 <body>
@@ -335,20 +367,19 @@
   </section>
 
   <!-- 加入我们/联系我们横向并排区块 -->
-  <section class="section" style="padding-bottom:0;">
+  <section class="section contact-full" style="padding-bottom:0;">
     <div class="contact-row">
       <div class="contact-card" id="join">
         <h3>加入我们</h3>
-  <!-- 加入我们/联系我们区块 -->
-  <section class="section contact" id="join">
-    <h3>加入我们</h3>
-    <p>站在新时代的开端，AI技术正在重塑我们的未来。如果你心中怀有光明与爱，渴望探索未知并愿意迎接变革，欢迎加入我们共同创造一个更加美好的明天。</p>
-    <a href="mailto:contact@xiangcaoren.com">投递简历：contact@xiangcaoren.com</a>
-  </section>
-  <section class="section contact" id="contact">
-    <h3>联系我们</h3>
-    <p>邮箱：<a href="mailto:contact@xiangcaoren.com">contact@xiangcaoren.com</a></p>
-    <p>地址：北京市海淀区中关村创业大街</p>
+        <p>站在新时代的开端，AI技术正在重塑我们的未来。如果你心中怀有光明与爱，渴望探索未知并愿意迎接变革，欢迎加入我们共同创造一个更加美好的明天。</p>
+        <a href="mailto:contact@xiangcaoren.com">投递简历：contact@xiangcaoren.com</a>
+      </div>
+      <div class="contact-card" id="contact">
+        <h3>联系我们</h3>
+        <p>邮箱：<a href="mailto:contact@xiangcaoren.com">contact@xiangcaoren.com</a></p>
+        <p>地址：北京市海淀区中关村创业大街</p>
+      </div>
+    </div>
   </section>
 
   <footer>
