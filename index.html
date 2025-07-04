@@ -35,7 +35,7 @@
     .nav-logo {
       display: flex; align-items: center; gap: 0.7rem;
     }
-    .nav-logo object {
+    .nav-logo img {
       height: 38px; width: 70px;
     }
     .nav-title {
@@ -64,7 +64,7 @@
     .hero-logo {
       margin-bottom: 1.2rem;
     }
-    .hero-logo object {
+    .hero-logo img {
       width: 120px; height: 60px;
     }
     .hero-title {
@@ -138,14 +138,39 @@
       0% { transform: translateX(0); }
       100% { transform: translateX(-30%); }
     }
-    /* 联系我们/加入我们 */
-    .contact {
-      background: var(--primary); color: #fff; border-radius: 16px;
-      padding: 2.5rem 1.5rem; text-align: center; margin: 2.5rem 0 0 0;
+    /* 加入我们/联系我们横向并排区块 */
+    .section {
+      padding-bottom: 0;
     }
-    .contact h3 { font-size: 1.5rem; margin-bottom: 1rem; }
-    .contact p { font-size: 1.1rem; margin-bottom: 1.2rem; }
-    .contact a { color: #fff; text-decoration: underline; }
+    .contact-row {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      align-items: stretch;
+      margin-bottom: 0;
+    }
+    .contact-card {
+      background: var(--primary);
+      color: #fff;
+      border-radius: 16px;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      flex: 1 1 0;
+      min-width: 260px;
+      max-width: 520px;
+      box-shadow: 0 2px 12px rgba(44,62,80,0.10);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+    .contact-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+    .contact-card p { font-size: 1.1rem; margin-bottom: 1.2rem; }
+    .contact-card a { color: #fff; text-decoration: underline; }
+    @media (max-width: 900px) {
+      .contact-row { flex-direction: column; gap: 1.5rem; }
+      .contact-card { max-width: 100%; }
+    }
     /* 页脚 */
     footer {
       background: var(--dark); color: #fff; text-align: center;
@@ -168,7 +193,7 @@
   <!-- 顶部导航栏 -->
   <nav>
     <div class="nav-logo">
-      <object type="image/svg+xml" data="vanilla-beauty-logo-horizontal.svg" width="70" height="38"></object>
+      <img src="logo.jpg" width="70" height="38" alt="香草人科技LOGO" style="object-fit:contain;"/>
       <span class="nav-title">香草人科技</span>
     </div>
     <div class="nav-menu">
@@ -186,7 +211,7 @@
   <!-- Hero Banner -->
   <section class="hero" id="hero">
     <div class="hero-logo">
-      <object type="image/svg+xml" data="vanilla-beauty-logo-horizontal.svg" width="120" height="60"></object>
+      <img src="logo.jpg" width="120" height="60" alt="香草人科技LOGO" style="object-fit:contain;"/>
     </div>
     <div class="hero-title">定义你自己，点亮世界</div>
     <div class="hero-subtitle">专注人工智能与数字化解决方案，温暖每一个心灵</div>
@@ -206,7 +231,7 @@
       </div>
       <div class="card">
         <h3>品牌Logo与Slogan</h3>
-        <object type="image/svg+xml" data="vanilla-beauty-logo-vertical.svg" width="60" height="70"></object>
+        <img src="logo.jpg" width="60" height="70" alt="香草人科技LOGO" style="object-fit:contain;"/>
         <p style="margin-top:0.5rem;">Logo：两个相交的心形代表心与心之间的沟通；V字切口象征个人边界和尊重；23.5度倾斜角度表示内心的四季都能被看见。<br>Slogan："定义你自己"（Define Yourself）</p>
       </div>
     </div>
@@ -297,6 +322,11 @@
     </div>
   </section>
 
+  <!-- 加入我们/联系我们横向并排区块 -->
+  <section class="section" style="padding-bottom:0;">
+    <div class="contact-row">
+      <div class="contact-card" id="join">
+        <h3>加入我们</h3>
   <!-- 加入我们/联系我们区块 -->
   <section class="section contact" id="join">
     <h3>加入我们</h3>
