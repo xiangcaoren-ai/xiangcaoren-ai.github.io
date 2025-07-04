@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="180" height="220" viewBox="0 0 180 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 心形VB logo -->
+  <path d="M40,120 Q10,80 40,60 Q70,40 90,70 Q110,40 140,60 Q170,80 140,120 Q110,160 90,130 Q70,160 40,120 Z" stroke="black" stroke-width="6" fill="none"/>
+  <!-- Vanilla Beauty 英文（手写体路径近似） -->
+  <text x="15" y="185" font-family="Brush Script MT, cursive" font-size="32" fill="black">Vanilla Beauty</text>
+  <!-- 香草人 中文（书法体路径近似） -->
+  <text x="30" y="215" font-family="STKaiti, KaiTi, serif" font-size="28" fill="black">香草人</text>
+</svg> 
