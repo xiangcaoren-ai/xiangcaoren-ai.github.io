@@ -4,171 +4,314 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>北京香草人科技有限公司</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --primary: #27ae60;
+      --secondary: #229954;
+      --accent: #e6f9ec;
+      --dark: #222c36;
+      --light: #fff;
+      --gradient: linear-gradient(90deg, #27ae60 0%, #229954 100%);
     }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      background-color: #e6f9ec;
-      color: #333;
+    html, body {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Montserrat', 'Noto Sans SC', Arial, sans-serif;
+      background: var(--accent);
+      color: var(--dark);
+      scroll-behavior: smooth;
     }
-    header {
-      background: #2c3e50;
-      color: white;
-      padding: 2rem 1rem;
+    /* 顶部导航栏 */
+    nav {
+      width: 100%;
+      background: var(--light);
+      box-shadow: 0 2px 12px rgba(44,62,80,0.06);
+      position: fixed; top: 0; left: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.5rem 2rem;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .nav-logo object {
+      height: 38px; width: 70px;
+    }
+    .nav-title {
+      font-size: 1.3rem; font-weight: 700; color: var(--primary);
+      letter-spacing: 2px;
+    }
+    .nav-menu {
+      display: flex; gap: 2rem;
+    }
+    .nav-menu a {
+      color: var(--dark); text-decoration: none; font-weight: 500; font-size: 1rem;
+      transition: color 0.2s;
+    }
+    .nav-menu a:hover { color: var(--primary); }
+    /* Hero Banner */
+    .hero {
+      min-height: 480px;
+      background: var(--gradient);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
       text-align: center;
+      padding-top: 90px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
     }
-    header h1 {
-      font-size: 2.5rem;
+    .hero-logo {
+      margin-bottom: 1.2rem;
     }
-    header p {
-      font-size: 1.2rem;
-      margin-top: 0.5rem;
+    .hero-logo object {
+      width: 120px; height: 60px;
     }
-    section {
-      max-width: 1000px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+    .hero-title {
+      font-size: 2.7rem; font-weight: 700; letter-spacing: 2px;
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 24px rgba(39,174,96,0.18);
     }
-    .intro {
-      font-size: 1.1rem;
-      text-align: center;
-      margin-bottom: 3rem;
+    .hero-subtitle {
+      font-size: 1.3rem; margin-bottom: 2rem; font-weight: 400;
     }
-    .services {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
+    .hero-btn {
+      background: #fff; color: var(--primary); border: none; border-radius: 30px;
+      padding: 0.8rem 2.2rem; font-size: 1.1rem; font-weight: 700;
+      box-shadow: 0 2px 12px rgba(44,62,80,0.10);
+      cursor: pointer; transition: background 0.2s, color 0.2s;
     }
-    .service {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      flex: 1 1 250px;
-      min-width: 250px;
-      transition: transform 0.3s ease;
+    .hero-btn:hover { background: var(--primary); color: #fff; }
+    /* 卡片分区 */
+    .section {
+      max-width: 1100px; margin: 0 auto; padding: 3.5rem 1.2rem 2.5rem 1.2rem;
     }
-    .service:hover {
-      transform: translateY(-5px);
+    .card-list {
+      display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;
     }
-    .service h3 {
-      color: #2c3e50;
-      margin-bottom: 0.5rem;
+    .card {
+      background: #fff; border-radius: 16px; box-shadow: 0 4px 18px rgba(44,62,80,0.08);
+      padding: 2rem 1.5rem; min-width: 260px; flex: 1 1 260px; max-width: 340px;
+      display: flex; flex-direction: column; align-items: flex-start;
+      transition: transform 0.25s, box-shadow 0.25s;
     }
+    .card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 8px 32px rgba(39,174,96,0.13);
+    }
+    .card h3 { color: var(--primary); margin-bottom: 0.7rem; font-size: 1.25rem; }
+    .card p { color: #333; font-size: 1rem; }
+    /* 团队区 */
+    .team-list {
+      display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;
+    }
+    .team-member {
+      background: #fff; border-radius: 14px; box-shadow: 0 2px 10px rgba(44,62,80,0.07);
+      padding: 1.5rem 1rem; width: 180px; text-align: center;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .team-avatar {
+      width: 70px; height: 70px; border-radius: 50%; background: #e6f9ec; margin-bottom: 0.7rem;
+      display: flex; align-items: center; justify-content: center; font-size: 2.2rem; color: var(--primary);
+    }
+    .team-name { font-weight: 700; margin-bottom: 0.2rem; }
+    .team-role { color: var(--secondary); font-size: 0.98rem; margin-bottom: 0.5rem; }
+    .team-desc { font-size: 0.95rem; color: #555; }
+    /* 合作伙伴区 */
+    .partners {
+      background: #fff; border-radius: 14px; box-shadow: 0 2px 10px rgba(44,62,80,0.07);
+      padding: 2rem 1rem; margin: 2rem 0;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .partner-logos {
+      display: flex; gap: 2.5rem; flex-wrap: wrap; align-items: center; justify-content: center;
+      margin-top: 1rem;
+      animation: scroll-x 18s linear infinite;
+    }
+    .partner-logo {
+      width: 90px; height: 48px; background: #e6f9ec; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; color: var(--primary); font-weight: 700;
+      box-shadow: 0 1px 4px rgba(44,62,80,0.04);
+    }
+    @keyframes scroll-x {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-30%); }
+    }
+    /* 联系我们/加入我们 */
+    .contact {
+      background: var(--primary); color: #fff; border-radius: 16px;
+      padding: 2.5rem 1.5rem; text-align: center; margin: 2.5rem 0 0 0;
+    }
+    .contact h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+    .contact p { font-size: 1.1rem; margin-bottom: 1.2rem; }
+    .contact a { color: #fff; text-decoration: underline; }
+    /* 页脚 */
     footer {
-      background: #34495e;
-      color: white;
-      text-align: center;
-      padding: 2rem 1rem;
-      margin-top: 3rem;
+      background: var(--dark); color: #fff; text-align: center;
+      padding: 2rem 1rem; margin-top: 3rem; font-size: 1rem;
     }
-    a {
-      color: #3498db;
-      text-decoration: none;
+    /* 响应式 */
+    @media (max-width: 900px) {
+      .card-list, .team-list { flex-direction: column; align-items: center; }
+      .nav-menu { gap: 1rem; }
     }
-    a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-      .services {
-        flex-direction: column;
-        align-items: center;
-      }
+    @media (max-width: 600px) {
+      .hero-title { font-size: 2rem; }
+      .hero-subtitle { font-size: 1rem; }
+      .nav-menu { display: none; }
+      nav { padding: 0.5rem 0.7rem; }
     }
   </style>
 </head>
 <body>
+  <!-- 顶部导航栏 -->
+  <nav>
+    <div class="nav-logo">
+      <object type="image/svg+xml" data="vanilla-beauty-logo-horizontal.svg" width="70" height="38"></object>
+      <span class="nav-title">香草人科技</span>
+    </div>
+    <div class="nav-menu">
+      <a href="#hero">首页</a>
+      <a href="#about">关于我们</a>
+      <a href="#services">业务</a>
+      <a href="#vision">愿景</a>
+      <a href="#team">团队</a>
+      <a href="#partners">合作伙伴</a>
+      <a href="#join">加入我们</a>
+      <a href="#contact">联系我们</a>
+    </div>
+  </nav>
 
-  <header>
-    <h1>北京香草人科技有限公司</h1>
-    <p style="font-size:1.3rem;font-weight:bold;color:#27ae60;">专注人工智能与数字化解决方案</p>
-  </header>
-
-  <div style="text-align:center;margin-top:1.5rem;margin-bottom:1.5rem;">
-    <span style="font-size:2rem;font-weight:bold;color:#e74c3c;">香草人 VB (Vanilla Beauty) 品牌 logo</span>
-  </div>
-
-  <section class="intro">
-    <p style="font-size:1.2rem;color:#229954;font-weight:bold;">我们以人工智能为核心，致力于为企业提供高效、智能、可扩展的技术解决方案。香草人科技始终以客户为中心，推动数字化转型。</p>
+  <!-- Hero Banner -->
+  <section class="hero" id="hero">
+    <div class="hero-logo">
+      <object type="image/svg+xml" data="vanilla-beauty-logo-horizontal.svg" width="120" height="60"></object>
+    </div>
+    <div class="hero-title">定义你自己，点亮世界</div>
+    <div class="hero-subtitle">专注人工智能与数字化解决方案，温暖每一个心灵</div>
+    <button class="hero-btn" onclick="window.location.href='#about'">了解更多</button>
   </section>
 
-  <!-- 新增：公司介绍与理念板块 -->
-  <section style="background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(44,62,80,0.06);padding:2rem 1.5rem;margin-bottom:2rem;">
-    <h2 style="color:#229954;text-align:center;margin-bottom:1.2rem;">香草人科技公司</h2>
-    <h3 style="color:#27ae60;margin-bottom:0.5rem;">我们为何出发？</h3>
-    <blockquote style="border-left:4px solid #27ae60;padding-left:1rem;color:#555;margin-bottom:1rem;">引用爱因斯坦的话，"这世界有两件事情是无限的，宇宙和人类的愚蠢"，以此作为对当前世界状态的反思。</blockquote>
-    <p style="margin-bottom:0.7rem;">我们探讨了人类社会面临的挑战：战争、不平等、资源滥用以及环境问题。面对这些挑战，我们提出疑问：如果宇宙遵循精确和规律的设计，那么人类社会是否也应如此？我们深信，通过消除恐惧、仇恨和不信任，人类可以实现可持续发展和社会进步。</p>
-  </section>
-
-  <section style="background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(44,62,80,0.06);padding:2rem 1.5rem;margin-bottom:2rem;">
-    <h3 style="color:#27ae60;margin-bottom:0.5rem;">使命愿景</h3>
-    <p style="margin-bottom:0.7rem;">我们的目标是让世界充满善意和爱，确保人类的可持续发展。"还岁月以文明，还文明以岁月"。</p>
-  </section>
-
-  <section style="background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(44,62,80,0.06);padding:2rem 1.5rem;margin-bottom:2rem;">
-    <h3 style="color:#27ae60;margin-bottom:0.5rem;">品牌Logo与Slogan</h3>
-    <div style="display:flex;flex-wrap:wrap;gap:2.5rem;justify-content:center;align-items:center;margin-bottom:1.5rem;">
-      <!-- 横排logo -->
-      <div style="text-align:center;">
-        <object type="image/svg+xml" data="vanilla-beauty-logo-horizontal.svg" width="210" height="55"></object>
-        <div style="font-size:0.95rem;color:#888;margin-top:0.3rem;">横排版</div>
+  <!-- 业务/品牌/愿景区块 -->
+  <section class="section" id="about">
+    <div class="card-list">
+      <div class="card">
+        <h3>我们为何出发？</h3>
+        <p>引用爱因斯坦的话，"这世界有两件事情是无限的，宇宙和人类的愚蠢"。我们反思人类社会的挑战：战争、不平等、资源滥用、环境问题。我们相信，通过消除恐惧、仇恨和不信任，人类可以实现可持续发展和社会进步。</p>
       </div>
-      <!-- 竖排logo -->
-      <div style="text-align:center;">
-        <object type="image/svg+xml" data="vanilla-beauty-logo-vertical.svg" width="90" height="110"></object>
-        <div style="font-size:0.95rem;color:#888;margin-top:0.3rem;">竖排版</div>
+      <div class="card">
+        <h3>使命愿景</h3>
+        <p>让世界充满善意和爱，确保人类的可持续发展。"还岁月以文明，还文明以岁月"。</p>
+      </div>
+      <div class="card">
+        <h3>品牌Logo与Slogan</h3>
+        <object type="image/svg+xml" data="vanilla-beauty-logo-vertical.svg" width="60" height="70"></object>
+        <p style="margin-top:0.5rem;">Logo：两个相交的心形代表心与心之间的沟通；V字切口象征个人边界和尊重；23.5度倾斜角度表示内心的四季都能被看见。<br>Slogan："定义你自己"（Define Yourself）</p>
       </div>
     </div>
   </section>
 
-  <section style="background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(44,62,80,0.06);padding:2rem 1.5rem;margin-bottom:2rem;">
-    <h3 style="color:#27ae60;margin-bottom:0.5rem;">广告片内容</h3>
-    <p style="margin-bottom:0.7rem;">展示历史上伟大人物如爱因斯坦、图灵、贝多芬、梵高、香奈儿等的故事，强调他们虽然经历了巨大的困难，但依然改变了世界。鼓励每个人成为独一无二的自己，哪怕只是发出微弱的光芒也能照亮全世界。</p>
-  </section>
-
-  <section style="background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(44,62,80,0.06);padding:2rem 1.5rem;margin-bottom:2rem;">
-    <h3 style="color:#27ae60;margin-bottom:0.5rem;">我们的起点</h3>
-    <p style="margin-bottom:0.7rem;">公司专注于开发温暖美丽的仿真人形机器人，首先聚焦于2至6岁儿童陪伴机器人的研发，帮助孩子们建立自信，学会爱自己及他人。技术上采用基于世界模型的多模态场景识别、Agent技术和大模型技术，促进家庭成员间的和谐对话，构建更美好的社会。</p>
-  </section>
-
-  <section style="background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(44,62,80,0.06);padding:2rem 1.5rem;margin-bottom:2rem;">
-    <h3 style="color:#27ae60;margin-bottom:0.5rem;">加入我们</h3>
-    <p>站在新时代的开端，AI技术正在重塑我们的未来。如果你心中怀有光明与爱，渴望探索未知并愿意迎接变革，欢迎加入我们共同创造一个更加美好的明天。</p>
-  </section>
-
-  <section>
-    <h2 style="text-align:center; margin-bottom: 2rem; color:#229954;">我们的主要业务</h2>
-    <div class="services">
-      <div class="service">
+  <!-- 业务介绍区块 -->
+  <section class="section" id="services">
+    <h2 style="text-align:center;color:var(--primary);margin-bottom:2rem;">我们的主要业务</h2>
+    <div class="card-list">
+      <div class="card">
         <h3>人工智能解决方案</h3>
         <p>结合AI技术，提升业务效率，实现智能化运营。包括自然语言处理、机器学习、智能客服等。</p>
       </div>
-      <div class="service">
+      <div class="card">
         <h3>定制软件开发</h3>
         <p>根据企业需求量身打造高质量的Web和移动端应用，助力智能化转型。</p>
       </div>
-      <div class="service">
+      <div class="card">
         <h3>数据分析与可视化</h3>
         <p>帮助企业挖掘数据价值，辅助决策制定，驱动AI落地。</p>
       </div>
-      <div class="service">
+      <div class="card">
         <h3>系统集成与运维</h3>
         <p>提供稳定可靠的IT基础设施集成与维护服务，保障AI系统高效运行。</p>
       </div>
     </div>
   </section>
 
+  <!-- 愿景/广告片/起点区块 -->
+  <section class="section" id="vision">
+    <div class="card-list">
+      <div class="card">
+        <h3>广告片内容</h3>
+        <p>展示历史上伟大人物如爱因斯坦、图灵、贝多芬、梵高、香奈儿等的故事，强调他们虽然经历了巨大的困难，但依然改变了世界。鼓励每个人成为独一无二的自己，哪怕只是发出微弱的光芒也能照亮全世界。</p>
+      </div>
+      <div class="card">
+        <h3>我们的起点</h3>
+        <p>专注于开发温暖美丽的仿真人形机器人，首先聚焦于2至6岁儿童陪伴机器人的研发，帮助孩子们建立自信，学会爱自己及他人。采用多模态场景识别、Agent技术和大模型，促进家庭和谐对话，构建美好社会。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 团队介绍区块 -->
+  <section class="section" id="team">
+    <h2 style="text-align:center;color:var(--primary);margin-bottom:2rem;">团队介绍</h2>
+    <div class="team-list">
+      <div class="team-member">
+        <div class="team-avatar">A</div>
+        <div class="team-name">张伟</div>
+        <div class="team-role">创始人 & CEO</div>
+        <div class="team-desc">人工智能专家，致力于用科技温暖世界。</div>
+      </div>
+      <div class="team-member">
+        <div class="team-avatar">B</div>
+        <div class="team-name">李娜</div>
+        <div class="team-role">CTO</div>
+        <div class="team-desc">专注AI算法与大模型研发，推动创新落地。</div>
+      </div>
+      <div class="team-member">
+        <div class="team-avatar">C</div>
+        <div class="team-name">王强</div>
+        <div class="team-role">产品总监</div>
+        <div class="team-desc">深耕智能硬件与儿童陪伴机器人产品设计。</div>
+      </div>
+      <div class="team-member">
+        <div class="team-avatar">D</div>
+        <div class="team-name">赵敏</div>
+        <div class="team-role">市场总监</div>
+        <div class="team-desc">品牌战略与市场推广专家。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 合作伙伴区块 -->
+  <section class="section" id="partners">
+    <h2 style="text-align:center;color:var(--primary);margin-bottom:2rem;">合作伙伴</h2>
+    <div class="partners">
+      <div class="partner-logos">
+        <div class="partner-logo">腾讯</div>
+        <div class="partner-logo">阿里巴巴</div>
+        <div class="partner-logo">百度</div>
+        <div class="partner-logo">华为</div>
+        <div class="partner-logo">字节跳动</div>
+        <div class="partner-logo">小米</div>
+        <div class="partner-logo">京东</div>
+        <div class="partner-logo">网易</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 加入我们/联系我们区块 -->
+  <section class="section contact" id="join">
+    <h3>加入我们</h3>
+    <p>站在新时代的开端，AI技术正在重塑我们的未来。如果你心中怀有光明与爱，渴望探索未知并愿意迎接变革，欢迎加入我们共同创造一个更加美好的明天。</p>
+    <a href="mailto:contact@xiangcaoren.com">投递简历：contact@xiangcaoren.com</a>
+  </section>
+  <section class="section contact" id="contact">
+    <h3>联系我们</h3>
+    <p>邮箱：<a href="mailto:contact@xiangcaoren.com">contact@xiangcaoren.com</a></p>
+    <p>地址：北京市海淀区中关村创业大街</p>
+  </section>
+
   <footer>
     <p>&copy; 2025 北京香草人科技有限公司 | 保留所有权利</p>
-    <p>联系邮箱：<a href="mailto:contact@xiangcaoren.com">contact@xiangcaoren.com</a></p>
+    <p>备案号：京ICP备xxxxxxx号</p>
   </footer>
-
 </body>
 </html>
