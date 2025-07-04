@@ -187,13 +187,25 @@
       .nav-menu { display: none; }
       nav { padding: 0.5rem 0.7rem; }
     }
+    .logo-img {
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
+      display: block;
+      margin: 0 auto;
+      background: transparent;
+      /* 临时裁剪白边：用clip-path聚焦中间logo区域，数值可微调 */
+      clip-path: inset(8% 10% 8% 10% round 12px);
+      /* 如logo为深色可加阴影增强立体感 */
+      box-shadow: 0 2px 12px rgba(44,62,80,0.08);
+    }
   </style>
 </head>
 <body>
   <!-- 顶部导航栏 -->
   <nav>
     <div class="nav-logo">
-      <img src="logo.jpg" width="70" height="38" alt="香草人科技LOGO" style="object-fit:contain;"/>
+      <img src="logo.jpg" width="70" height="38" alt="香草人科技LOGO" class="logo-img"/>
       <span class="nav-title">香草人科技</span>
     </div>
     <div class="nav-menu">
@@ -211,7 +223,7 @@
   <!-- Hero Banner -->
   <section class="hero" id="hero">
     <div class="hero-logo">
-      <img src="logo.jpg" width="120" height="60" alt="香草人科技LOGO" style="object-fit:contain;"/>
+      <img src="logo.jpg" width="120" height="60" alt="香草人科技LOGO" class="logo-img"/>
     </div>
     <div class="hero-title">定义你自己，点亮世界</div>
     <div class="hero-subtitle">专注人工智能与数字化解决方案，温暖每一个心灵</div>
@@ -231,7 +243,7 @@
       </div>
       <div class="card">
         <h3>品牌Logo与Slogan</h3>
-        <img src="logo.jpg" width="60" height="70" alt="香草人科技LOGO" style="object-fit:contain;"/>
+        <img src="logo.jpg" width="60" height="70" alt="香草人科技LOGO" class="logo-img"/>
         <p style="margin-top:0.5rem;">Logo：两个相交的心形代表心与心之间的沟通；V字切口象征个人边界和尊重；23.5度倾斜角度表示内心的四季都能被看见。<br>Slogan："定义你自己"（Define Yourself）</p>
       </div>
     </div>
