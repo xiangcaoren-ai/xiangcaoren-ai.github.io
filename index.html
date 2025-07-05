@@ -625,6 +625,87 @@
       .footer-logo { width: 32px; height: 32px; }
       .section-divider { margin: 1rem 0 1rem 0; }
     }
+    /* Hero区动态粒子和流光 */
+    .hero-bg-anim {
+      position: absolute; left: 0; top: 0; width: 100vw; height: 100%; z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .hero { position: relative; z-index: 1; }
+    /* 分区分割线流动高光 */
+    .section-divider {
+      position: relative;
+      overflow: hidden;
+    }
+    .divider-glow {
+      position: absolute; left: -20%; top: 0; width: 40%; height: 100%; background: linear-gradient(90deg, transparent 0%, #00E0FF88 50%, transparent 100%); filter: blur(4px); animation: divider-glow-move 3.5s linear infinite;
+    }
+    @keyframes divider-glow-move {
+      0% { left: -20%; }
+      100% { left: 80%; }
+    }
+    /* 卡片悬浮高光流动 */
+    .card, .ai-step, .team-member, .contact-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before, .ai-step::before, .team-member::before, .contact-card::before {
+      content: ""; position: absolute; left: -60%; top: 0; width: 60%; height: 100%; background: linear-gradient(120deg, transparent 60%, #00E0FF55 90%, transparent 100%); z-index: 1; transform: skewX(-24deg); transition: none; pointer-events: none;
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .card:hover::before, .ai-step:hover::before, .team-member:hover::before, .contact-card:hover::before {
+      animation: btn-glow 2.2s linear infinite; opacity: 1;
+    }
+    /* 按钮点击水波扩散 */
+    .hero-btn, .contact-btn {
+      overflow: hidden; position: relative;
+    }
+    .ripple {
+      position: absolute; border-radius: 50%; transform: scale(0); animation: ripple 0.6s linear; background: rgba(0,224,255,0.18); pointer-events: none; z-index: 2;
+    }
+    @keyframes ripple {
+      to { transform: scale(2.5); opacity: 0; }
+    }
+    /* 团队头像渐变流动边框 */
+    .team-avatar {
+      border: 3px solid; border-image: linear-gradient(135deg, #1A8FFF 60%, #00E0FF 100%) 1; box-shadow: 0 0 0 0 #1A8FFF33;
+      animation: pulse 2.5s infinite alternate, avatar-gradient 4s linear infinite;
+      background-clip: padding-box;
+    }
+    @keyframes avatar-gradient {
+      0% { border-image: linear-gradient(135deg, #1A8FFF 60%, #00E0FF 100%) 1; }
+      50% { border-image: linear-gradient(135deg, #00E0FF 60%, #1A8FFF 100%) 1; }
+      100% { border-image: linear-gradient(135deg, #1A8FFF 60%, #00E0FF 100%) 1; }
+    }
+    .team-avatar:hover {
+      box-shadow: 0 0 24px 8px #00E0FF44, 0 2px 8px #1A8FFF22;
+      border-width: 4px;
+    }
+    /* 合作伙伴logo滚动自动高亮 */
+    .partner-logo {
+      transition: filter 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s, background 0.25s;
+    }
+    .partner-logo.active {
+      filter: grayscale(0) brightness(1.15); color: var(--secondary); box-shadow: 0 0 24px #00E0FF44, 0 4px 18px #1A8FFF13; transform: scale(1.08); background: #F4F8FB;
+    }
+    /* 顶部导航滚动阴影 */
+    nav.scrolled {
+      box-shadow: 0 4px 24px #1A8FFF22, 0 2px 8px #1B263B11;
+      background: rgba(255,255,255,0.92);
+      border-bottom: 2px solid #B3E6FF;
+    }
+    /* 回到顶部按钮 */
+    #backToTop {
+      position: fixed; right: 2.2rem; bottom: 2.2rem; z-index: 300;
+      width: 48px; height: 48px; border-radius: 50%; background: var(--gradient); color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 18px #1A8FFF33; cursor: pointer; opacity: 0.85; border: none; outline: none; font-size: 1.6rem; transition: opacity 0.2s, transform 0.2s;
+      animation: backtotop-bounce 2.2s infinite alternate;
+      display: none;
+    }
+    #backToTop.show { display: flex; }
+    #backToTop:hover { opacity: 1; transform: scale(1.08) translateY(-4px); }
+    @keyframes backtotop-bounce {
+      0% { transform: translateY(0); }
+      60% { transform: translateY(-6px) scale(1.08); }
+      100% { transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
@@ -671,7 +752,7 @@
       </svg>
     </div>
   </section>
-  <div class="section-divider"></div>
+  <div class="section-divider"><div class="divider-glow"></div></div>
   <!-- 三栏区块（业务/品牌/愿景） -->
   <section class="section-3col fade-in" id="about">
     <div class="card">
@@ -690,7 +771,7 @@
       <p>融合科技与美学，打造温暖、智能、可持续的未来社会。<br><span style="font-size:0.98em;color:#1A8FFF;">Blending technology and aesthetics for a better future.</span></p>
     </div>
   </section>
-  <div class="section-divider"></div>
+  <div class="section-divider"><div class="divider-glow"></div></div>
   <!-- AI业务流程/优势区块 -->
   <section class="ai-flow-section fade-in" id="services">
     <div class="ai-flow-title">AI赋能业务流程 <span class="en-sub">AI Empowered Business Flow</span></div>
@@ -720,7 +801,7 @@
       </div>
     </div>
   </section>
-  <div class="section-divider"></div>
+  <div class="section-divider"><div class="divider-glow"></div></div>
   <!-- 团队区 -->
   <section class="team-section fade-in" id="team">
     <div class="team-title">核心团队 <span class="en-sub">Core Team</span></div>
@@ -751,7 +832,7 @@
       </div>
     </div>
   </section>
-  <div class="section-divider"></div>
+  <div class="section-divider"><div class="divider-glow"></div></div>
   <!-- 合作伙伴区 -->
   <section class="partners-section fade-in" id="partners">
     <div class="team-title">合作伙伴 <span class="en-sub">Partners</span></div>
@@ -768,7 +849,7 @@
       </div>
     </div>
   </section>
-  <div class="section-divider"></div>
+  <div class="section-divider"><div class="divider-glow"></div></div>
   <!-- 加入我们/联系我们区块 -->
   <section class="contact-section fade-in" id="contact">
     <div class="contact-row">
@@ -850,6 +931,39 @@
         partnerLogos.scrollLeft = scrollLeft - walk;
       });
     }
+    // 顶部导航滚动阴影
+    window.addEventListener('scroll', function() {
+      const nav = document.querySelector('nav');
+      if(window.scrollY > 24) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+      // 回到顶部按钮显示
+      const btn = document.getElementById('backToTop');
+      if(window.scrollY > 200) btn.classList.add('show');
+      else btn.classList.remove('show');
+    });
+    // 按钮水波扩散
+    document.querySelectorAll('.hero-btn, .contact-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        const rect = btn.getBoundingClientRect();
+        ripple.style.left = (e.clientX - rect.left) + 'px';
+        ripple.style.top = (e.clientY - rect.top) + 'px';
+        ripple.style.width = ripple.style.height = Math.max(rect.width, rect.height) + 'px';
+        btn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+      });
+    });
+    // 合作伙伴logo滚动自动高亮
+    function highlightPartnerLogo() {
+      const logos = document.querySelectorAll('.partner-logo');
+      let idx = 0;
+      setInterval(() => {
+        logos.forEach((el,i)=>el.classList.toggle('active',i===idx));
+        idx = (idx+1)%logos.length;
+      }, 1800);
+    }
+    window.addEventListener('DOMContentLoaded', highlightPartnerLogo);
   </script>
 </body>
 </html>
