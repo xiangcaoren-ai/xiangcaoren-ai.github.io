@@ -75,6 +75,11 @@
       filter: drop-shadow(0 4px 16px rgba(39,174,96,0.18));
     }
     .hero-title {
+      background: linear-gradient(90deg, #27ae60 0%, #1e90ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
       font-size: 3.6rem;
       font-weight: 900;
       letter-spacing: 2.5px;
@@ -84,15 +89,22 @@
     }
     .hero-subtitle {
       font-size: 1.5rem;
-      margin-bottom: 2.2rem;
+      margin-bottom: 1.2rem;
       font-weight: 400;
       z-index: 2;
       text-shadow: 0 2px 8px #1e90ff22;
+    }
+    .hero-divider {
+      width: 90px; height: 4px; border-radius: 2px;
+      background: linear-gradient(90deg, #27ae60 0%, #1e90ff 100%);
+      margin: 0.7rem auto 2.2rem auto;
+      opacity: 0.22;
     }
     .hero-btn {
       position: relative;
       overflow: hidden;
       animation: hero-btn-float 3s ease-in-out infinite alternate;
+      box-shadow: 0 4px 18px #1e90ff22;
     }
     @keyframes hero-btn-float {
       0% { transform: translateY(0); }
@@ -134,6 +146,13 @@
       0% { r: 8; opacity: 0.18; }
       100% { r: 14; opacity: 0.32; }
     }
+    .hero-bg-svg .pulse2 {
+      animation: hero-pulse2 3.2s infinite alternate;
+    }
+    @keyframes hero-pulse2 {
+      0% { r: 6; opacity: 0.13; }
+      100% { r: 12; opacity: 0.28; }
+    }
     /* 卡片分区 */
     .section {
       max-width: 1100px; margin: 0 auto; padding: 3.5rem 1.2rem 2.5rem 1.2rem;
@@ -164,7 +183,9 @@
       z-index: 1;
     }
     .card:hover {
-      box-shadow: 0 0 0 4px #1e90ff22, 0 16px 48px rgba(39,174,96,0.18), 0 2px 12px rgba(44,62,80,0.10);
+      box-shadow: 0 0 0 8px #1e90ff33, 0 24px 64px #27ae6011, 0 2px 12px #1e90ff22;
+      border: 1.5px solid #1e90ff;
+      transform: translateY(-14px) scale(1.06);
     }
     .card h3 {
       color: var(--primary); margin-bottom: 0.7rem; font-size: 1.28rem; font-weight: 700;
@@ -178,12 +199,12 @@
       stroke-width: 1.5;
     }
     .card .card-icon svg {
-      filter: drop-shadow(0 2px 8px #1e90ff33);
-      background: linear-gradient(120deg, #27ae60 0%, #1e90ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
+      animation: icon-gradient-move 4s linear infinite;
+    }
+    @keyframes icon-gradient-move {
+      0% { filter: drop-shadow(0 2px 8px #1e90ff33); }
+      50% { filter: drop-shadow(0 2px 16px #27ae6044); }
+      100% { filter: drop-shadow(0 2px 8px #1e90ff33); }
     }
     .card p { color: #333; font-size: 1.04rem; }
     .card-divider {
@@ -191,6 +212,12 @@
       background: var(--divider);
       margin: 1.1rem 0 1.2rem 0;
       opacity: 0.18;
+    }
+    .card-bottom-divider {
+      width: 60px; height: 4px; border-radius: 2px;
+      background: linear-gradient(90deg, #27ae60 0%, #1e90ff 100%);
+      margin: 1.2rem auto 0 auto;
+      opacity: 0.13;
     }
     /* 团队区 */
     .team-list {
@@ -200,12 +227,12 @@
       background: #fff; border-radius: var(--card-radius); box-shadow: var(--card-shadow);
       padding: 1.7rem 1.1rem; width: 190px; text-align: center;
       display: flex; flex-direction: column; align-items: center;
-      transition: transform 0.25s, box-shadow 0.25s;
+      transition: transform 0.32s cubic-bezier(.4,1.4,.6,1), box-shadow 0.32s;
       position: relative;
     }
     .team-member:hover {
-      transform: translateY(-8px) scale(1.04);
-      box-shadow: 0 12px 36px rgba(39,174,96,0.15), 0 2px 12px rgba(44,62,80,0.10);
+      transform: translateY(-10px) scale(1.08);
+      box-shadow: 0 0 0 10px #1e90ff22, 0 0 24px #27ae6011;
     }
     .team-avatar {
       border: 3px solid transparent;
@@ -215,15 +242,15 @@
       transition: box-shadow 0.3s, transform 0.3s, border 0.3s;
       position: relative;
       overflow: hidden;
-      animation: avatar-gradient 4s linear infinite;
+      animation: avatar-gradient 2.8s linear infinite;
     }
     .team-avatar span {
       font-size: 2.3rem; color: var(--primary); font-weight: 700; letter-spacing: 1px; z-index: 2; position: relative;
     }
     .team-member:hover .team-avatar {
-      box-shadow: 0 0 0 10px #1e90ff22, 0 0 24px #27ae6011;
+      box-shadow: 0 0 0 18px #1e90ff33, 0 0 24px #27ae6011;
       border: 3px solid #1e90ff;
-      transform: scale(1.12) rotate(-3deg);
+      transform: scale(1.18) rotate(-3deg);
     }
     .team-name { font-weight: 700; margin-bottom: 0.2rem; }
     .team-role { color: var(--secondary); font-size: 0.98rem; margin-bottom: 0.5rem; }
@@ -236,12 +263,22 @@
       padding: 2.2rem 1.2rem; margin: 2rem 0;
       display: flex; flex-direction: column; align-items: center;
       position: relative;
+      overflow: hidden;
+    }
+    .partners::before {
+      content: '';
+      position: absolute; left: 0; top: 0; width: 100%; height: 32px;
+      background: linear-gradient(180deg, #fff8 60%, #fff0 100%);
+      border-radius: var(--card-radius) var(--card-radius) 0 0;
+      pointer-events: none;
+      z-index: 1;
     }
     .partner-logos {
       display: flex; gap: 2.5rem; flex-wrap: wrap; align-items: center; justify-content: center;
       margin-top: 1rem;
       animation: scroll-x 18s linear infinite;
       width: 100%;
+      animation-play-state: running;
     }
     .partner-logo {
       width: 90px; height: 48px; background: #fff; border-radius: 10px;
@@ -250,12 +287,27 @@
       box-shadow: 0 1px 8px rgba(44,62,80,0.06);
       filter: grayscale(1) brightness(1.1);
       transition: filter 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s;
+      position: relative;
+      z-index: 2;
     }
-    .partner-logo:hover {
-      filter: grayscale(0) brightness(1.1);
-      color: var(--blue);
-      box-shadow: 0 0 24px #1e90ff44, 0 4px 18px rgba(39,174,96,0.13);
-      transform: scale(1.08);
+    .partner-logo::after {
+      content: '';
+      position: absolute; left: -10px; top: -10px; right: -10px; bottom: -10px;
+      border-radius: 16px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+      background: conic-gradient(from 0deg, #27ae60, #1e90ff, #27ae60 100%);
+      filter: blur(6px);
+    }
+    .partner-logo:hover::after {
+      opacity: 0.5;
+      animation: logo-glow 2.5s linear infinite;
+    }
+    @keyframes logo-glow {
+      0% { filter: blur(6px) brightness(1); }
+      50% { filter: blur(10px) brightness(1.2); }
+      100% { filter: blur(6px) brightness(1); }
     }
     @keyframes scroll-x {
       0% { transform: translateX(0); }
@@ -307,6 +359,61 @@
       background: linear-gradient(120deg, #e6f9ec 60%, #d0eaff 100%);
       color: #fff; text-align: center;
       padding: 2rem 1rem; margin-top: 3rem; font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    footer::before {
+      content: '';
+      position: absolute; left: 0; top: 0; width: 100%; height: 32px;
+      background: radial-gradient(ellipse at 50% 0%, #fff8 60%, #fff0 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .footer-divider {
+      width: 100%; height: 4px; background: var(--divider); opacity: 0.18; margin-bottom: 1.2rem;
+      border-radius: 2px;
+    }
+    .footer-logo {
+      width: 48px; height: 48px; border-radius: 12px; background: #fff; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 0.5rem; box-shadow: 0 2px 8px #27ae6011;
+    }
+    .footer-social {
+      margin: 1.2rem 0 0.5rem 0;
+      display: flex; gap: 1.2rem; justify-content: center; align-items: center;
+      position: relative;
+    }
+    .footer-social .tooltip {
+      visibility: hidden;
+      opacity: 0;
+      background: #222c36ee;
+      color: #fff;
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 0.95rem;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 38px;
+      white-space: nowrap;
+      z-index: 10;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+    .footer-social svg:hover + .tooltip {
+      visibility: visible;
+      opacity: 1;
+    }
+    .footer-social svg {
+      background: linear-gradient(120deg, #27ae60 0%, #1e90ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      transition: background 1.2s linear;
+      animation: social-gradient-move 3s linear infinite;
+    }
+    @keyframes social-gradient-move {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
     }
     /* 响应式 */
     @media (max-width: 900px) {
@@ -314,12 +421,13 @@
       .nav-menu { gap: 1rem; }
     }
     @media (max-width: 600px) {
-      .hero-title { font-size: 1.3rem; }
-      .hero-subtitle { font-size: 0.95rem; }
-      .hero-btn { font-size: 1rem; padding: 0.7rem 1.2rem; }
-      .card { padding: 1.2rem 0.7rem; }
-      .team-avatar { width: 54px; height: 54px; }
-      .footer-logo { width: 32px; height: 32px; }
+      .hero-title { font-size: 1.5rem; }
+      .hero-subtitle { font-size: 1rem; }
+      .hero-btn { font-size: 1.1rem; padding: 0.9rem 1.4rem; }
+      .card { padding: 1.2rem 0.5rem; }
+      .card .card-icon { width: 2em; height: 2em; }
+      .team-avatar { width: 60px; height: 60px; }
+      .footer-logo { width: 28px; height: 28px; }
       .nav-menu { display: none; }
       nav { padding: 0.5rem 0.7rem; }
     }
@@ -372,13 +480,6 @@
     /* 滚动进入动画 */
     .fade-in-up { opacity: 0; transform: translateY(40px) scale(0.96); transition: all 0.8s cubic-bezier(.4,1.4,.6,1); }
     .fade-in-up.visible { opacity: 1; transform: none; }
-    /* 分区渐变分割线 */
-    .section-divider {
-      width: 120px; height: 5px; border-radius: 3px;
-      background: var(--divider);
-      margin: 0 auto 2.2rem auto;
-      opacity: 0.22;
-    }
     /* 按钮波纹动效 */
     .hero-btn, .contact-card a {
       position: relative;
@@ -404,7 +505,9 @@
     /* 团队头像圆环渐变动画，悬停光圈 */
     @keyframes avatar-gradient {
       0% { border-color: #27ae60; }
-      50% { border-color: #1e90ff; }
+      25% { border-color: #1e90ff; }
+      50% { border-color: #27ae60; }
+      75% { border-color: #1e90ff; }
       100% { border-color: #27ae60; }
     }
     .footer-divider {
@@ -440,6 +543,11 @@
       visibility: visible;
       opacity: 1;
     }
+    /* 全局滚动条美化 */
+    ::-webkit-scrollbar { width: 8px; background: #e6f9ec; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(120deg, #27ae60 0%, #1e90ff 100%); border-radius: 6px; }
+    ::-webkit-scrollbar-thumb:hover { background: linear-gradient(120deg, #1e90ff 0%, #27ae60 100%); }
+    html { scrollbar-color: #27ae60 #e6f9ec; scrollbar-width: thin; }
   </style>
 </head>
 <body>
@@ -500,10 +608,15 @@
     </div>
     <div class="hero-title">定义你自己，点亮世界</div>
     <div class="hero-subtitle">专注人工智能与数字化解决方案，温暖每一个心灵</div>
+    <div class="hero-divider"></div>
     <div style="font-size:1.15rem;opacity:0.85;margin-bottom:2.2rem;">让AI与爱同行，创造可持续发展的美好未来</div>
     <button class="hero-btn" onclick="window.location.href='#about'">
       <span class="btn-icon">✨</span>了解更多
     </button>
+    <!-- 更多粒子 -->
+    <circle class="pulse2" cx="400" cy="180" r="8" fill="#1e90ff" fill-opacity="0.13"/>
+    <circle class="pulse2" cx="900" cy="120" r="7" fill="#27ae60" fill-opacity="0.13"/>
+    <circle class="pulse2" cx="1200" cy="350" r="6" fill="#1e90ff" fill-opacity="0.13"/>
   </section>
 
   <!-- 业务/品牌/愿景区块 -->
@@ -684,6 +797,12 @@
         setTimeout(() => ripple.remove(), 600);
       });
     });
+    // 合作伙伴logo区滚动可暂停
+    const partnerLogos = document.querySelector('.partner-logos');
+    if (partnerLogos) {
+      partnerLogos.addEventListener('mouseenter', () => partnerLogos.classList.add('paused'));
+      partnerLogos.addEventListener('mouseleave', () => partnerLogos.classList.remove('paused'));
+    }
   </script>
 </body>
 </html>
