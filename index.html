@@ -28,6 +28,12 @@
       background: var(--accent);
       color: var(--dark);
       scroll-behavior: smooth;
+      opacity: 0;
+      animation: page-fadein 1.2s cubic-bezier(.4,1.4,.6,1) 0.1s forwards;
+    }
+    @keyframes page-fadein {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
     /* 顶部导航栏 */
     nav {
@@ -460,17 +466,20 @@
       opacity: 1;
     }
     .footer-social svg {
-      background: linear-gradient(120deg, #1A8FFF 0%, #00E0FF 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
-      transition: background 1.2s linear;
-      animation: social-gradient-move 3s linear infinite, social-jump 1.8s cubic-bezier(.4,1.4,.6,1) infinite alternate;
+      width: 28px; height: 28px; fill: var(--primary); background: #fff; border-radius: 50%; box-shadow: 0 1px 6px #1A8FFF11; padding: 4px; transition: fill 0.2s, background 0.2s, transform 0.2s;
+      animation: social-bounce 2.2s infinite alternate, social-gradient 4s linear infinite;
     }
-    @keyframes social-jump {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.13); }
+    .footer-social svg:hover {
+      fill: var(--secondary); background: #F4F8FB; transform: scale(1.18) translateY(-4px);
+    }
+    @keyframes social-bounce {
+      0% { transform: translateY(0); }
+      60% { transform: translateY(-4px) scale(1.08); }
+      100% { transform: translateY(0); }
+    }
+    @keyframes social-gradient {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
     }
     /* 响应式 */
     @media (max-width: 900px) {
@@ -535,8 +544,8 @@
       .contact-full { padding-left: 1.2rem !important; padding-right: 1.2rem !important; }
     }
     /* 动画与动效 */
-    .fade-in { opacity: 0; transform: translateY(40px); transition: opacity 0.7s, transform 0.7s; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-in { opacity: 0; transform: translateY(40px) scale(0.96); transition: opacity 0.7s cubic-bezier(.4,1.4,.6,1), transform 0.7s cubic-bezier(.4,1.4,.6,1); }
+    .fade-in.visible { opacity: 1; transform: translateY(0) scale(1); }
     .card, .ai-step, .team-member, .contact-card { transition: box-shadow 0.25s, transform 0.25s, background 0.4s; }
     .card:hover, .ai-step:hover, .team-member:hover, .contact-card:hover {
       box-shadow: 0 12px 36px #1A8FFF33, 0 2px 12px #1A8FFF22;
@@ -568,18 +577,54 @@
       .nav-hamburger { display: flex; }
     }
     /* 全局滚动条美化 */
-    ::-webkit-scrollbar { width: 8px; background: #e6f9ec; }
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(120deg, #27ae60 0%, #1e90ff 100%);
-      border-radius: 6px;
-      background-size: 200% 200%;
-      animation: scrollbar-gradient 6s linear infinite;
+    ::-webkit-scrollbar { width: 10px; background: #E6F9FF; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #1A8FFF 30%, #00E0FF 100%); border-radius: 8px; }
+    ::-webkit-scrollbar-thumb:hover { background: linear-gradient(135deg, #00E0FF 0%, #1A8FFF 100%); }
+    /* 分区发光分割线 */
+    .section-divider {
+      width: 100%; height: 6px; background: linear-gradient(90deg, #1A8FFF 0%, #00E0FF 100%); opacity: 0.22; border-radius: 3px; margin: 2.5rem 0 2.5rem 0;
+      box-shadow: 0 0 16px #1A8FFF44, 0 0 32px #00E0FF22;
     }
-    @keyframes scrollbar-gradient {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
+    /* 英文副标题国际范 */
+    .en-sub {
+      font-size: 1.18rem; color: var(--secondary); font-weight: 700; letter-spacing: 0.18em; margin-left: 0.5em; text-transform: uppercase; display: inline-block;
     }
-    html { scrollbar-color: #27ae60 #e6f9ec; scrollbar-width: thin; }
+    /* 按钮流光动画 */
+    .hero-btn, .contact-btn {
+      position: relative; overflow: hidden;
+    }
+    .hero-btn::before, .contact-btn::before {
+      content: ""; position: absolute; left: -60%; top: 0; width: 60%; height: 100%; background: linear-gradient(120deg, transparent 60%, #00E0FF88 90%, transparent 100%); z-index: 1; transform: skewX(-24deg); transition: none;
+      animation: btn-glow 2.2s linear infinite;
+    }
+    @keyframes btn-glow {
+      0% { left: -60%; }
+      60% { left: 120%; }
+      100% { left: 120%; }
+    }
+    .hero-btn:active::after, .contact-btn:active::after {
+      width: 180%; height: 180%;
+    }
+    /* 移动端分区间距优化 */
+    @media (max-width: 1100px) {
+      .hero, .section-3col, .ai-flow-section, .team-section, .partners-section, .contact-section { max-width: 98vw; }
+      .hero { flex-direction: column; gap: 1.5rem; padding: 100px 0 40px 0; }
+      .hero-right, .hero-left { min-width: 0; width: 100%; }
+      .section-3col { flex-direction: column; gap: 1.5rem; }
+      .ai-flow { flex-direction: column; gap: 1.5rem; }
+      .contact-row { flex-direction: column; gap: 1.5rem; }
+      .section-divider { margin: 1.5rem 0 1.5rem 0; }
+    }
+    @media (max-width: 600px) {
+      .hero-title { font-size: 1.5rem; }
+      .hero-btn { font-size: 1rem; padding: 0.7rem 1.2rem; }
+      .hero-logo-img { width: 110px; height: 50px; }
+      .hero-svg { width: 180px; height: 110px; }
+      .section-3col .card, .ai-step, .team-member, .contact-card { padding: 1.1rem 0.5rem; }
+      .team-avatar { width: 54px; height: 54px; }
+      .footer-logo { width: 32px; height: 32px; }
+      .section-divider { margin: 1rem 0 1rem 0; }
+    }
   </style>
 </head>
 <body>
@@ -606,158 +651,110 @@
 
   <!-- Hero Banner -->
   <section class="hero fade-in" id="hero">
-    <!-- 动态粒子+流光SVG装饰 -->
-    <svg class="hero-bg-svg" viewBox="0 0 1440 540" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="glow1" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#27ae60" stop-opacity="0.12"/>
-          <stop offset="100%" stop-color="#1e90ff" stop-opacity="0.18"/>
-        </linearGradient>
-      </defs>
-      <circle cx="1200" cy="120" r="180" fill="#fff" fill-opacity="0.08"/>
-      <circle cx="300" cy="400" r="120" fill="#fff" fill-opacity="0.10"/>
-      <ellipse cx="900" cy="400" rx="180" ry="60" fill="#fff" fill-opacity="0.07"/>
-      <rect x="200" y="60" width="180" height="40" rx="20" fill="#fff" fill-opacity="0.07"/>
-      <rect x="900" y="60" width="120" height="30" rx="15" fill="#fff" fill-opacity="0.06"/>
-      <circle cx="700" cy="100" r="60" fill="#fff" fill-opacity="0.06"/>
-      <!-- 动态粒子 -->
-      <circle id="particle1" cx="200" cy="120" r="8" fill="#27ae60" fill-opacity="0.18">
-        <animate attributeName="cy" values="120;80;120" dur="4s" repeatCount="indefinite"/>
-      </circle>
-      <circle id="particle2" cx="600" cy="60" r="6" fill="#229954" fill-opacity="0.18">
-        <animate attributeName="cy" values="60;100;60" dur="5s" repeatCount="indefinite"/>
-      </circle>
-      <circle id="particle3" cx="1100" cy="200" r="10" fill="#27ae60" fill-opacity="0.13">
-        <animate attributeName="cy" values="200;250;200" dur="6s" repeatCount="indefinite"/>
-      </circle>
-      <!-- 流光线条 -->
-      <rect x="0" y="180" width="1440" height="8" rx="4" fill="url(#glow1)">
-        <animate attributeName="x" values="-200;0;200;-200" dur="8s" repeatCount="indefinite"/>
-      </rect>
-      <rect x="0" y="320" width="1440" height="6" rx="3" fill="url(#glow1)">
-        <animate attributeName="x" values="200;0;-200;200" dur="10s" repeatCount="indefinite"/>
-      </rect>
-    </svg>
-    <div class="hero-logo">
-      <img src="logo.jpg" width="130" height="70" alt="香草人科技LOGO" class="logo-img"/>
+    <div class="hero-left">
+      <div class="hero-en en-sub">AI for a Better World</div>
+      <div class="hero-title">定义你自己，点亮世界</div>
+      <div class="hero-desc">专注人工智能与数字化解决方案，温暖每一个心灵。让AI与爱同行，创造可持续发展的美好未来。</div>
+      <button class="hero-btn" onclick="window.location.href='#about'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="1.3em" height="1.3em"><path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>了解更多</button>
     </div>
-    <div class="hero-title">定义你自己，点亮世界</div>
-    <div class="hero-subtitle">专注人工智能与数字化解决方案，温暖每一个心灵</div>
-    <div class="hero-divider"></div>
-    <div style="font-size:1.15rem;opacity:0.85;margin-bottom:2.2rem;">让AI与爱同行，创造可持续发展的美好未来</div>
-    <button class="hero-btn" onclick="window.location.href='#about'">
-      <span class="btn-icon">✨</span>了解更多
-    </button>
-    <!-- 更多粒子 -->
-    <circle class="pulse2" cx="400" cy="180" r="8" fill="#1e90ff" fill-opacity="0.13"/>
-    <circle class="pulse2" cx="900" cy="120" r="7" fill="#27ae60" fill-opacity="0.13"/>
-    <circle class="pulse2" cx="1200" cy="350" r="6" fill="#1e90ff" fill-opacity="0.13"/>
-  </section>
-
-  <!-- 业务/品牌/愿景区块 -->
-  <section class="section fade-in-up" id="about">
-    <div class="section-divider"></div>
-    <div class="card-list">
-      <div class="card">
-        <h3><span class="card-icon"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 21c-4.5-2.5-8-7-8-11.5C4 5.5 7.5 2 12 2s8 3.5 8 7.5c0 4.5-3.5 9-8 11.5Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> </span>我们为何出发？</h3>
-        <div class="card-divider"></div>
-        <p>引用爱因斯坦的话，"这世界有两件事情是无限的，宇宙和人类的愚蠢"。我们反思人类社会的挑战：战争、不平等、资源滥用、环境问题。我们相信，通过消除恐惧、仇恨和不信任，人类可以实现可持续发展和社会进步。</p>
-      </div>
-      <div class="card">
-        <h3><span class="card-icon"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-width="1.5"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20" stroke-width="1.5"/></svg> </span>使命愿景</h3>
-        <div class="card-divider"></div>
-        <p>让世界充满善意和爱，确保人类的可持续发展。"还岁月以文明，还文明以岁月"。</p>
-      </div>
-      <div class="card">
-        <h3><span class="card-icon"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v2m0 16v2m10-10h-2M4 12H2" stroke-width="1.5"/></svg> </span>品牌Logo与Slogan</h3>
-        <div class="card-divider"></div>
-        <img src="logo.jpg" width="60" height="70" alt="香草人科技LOGO" class="logo-img"/>
-        <p style="margin-top:0.5rem;">Logo：两个相交的心形代表心与心之间的沟通；V字切口象征个人边界和尊重；23.5度倾斜角度表示内心的四季都能被看见。<br>Slogan："定义你自己"（Define Yourself）</p>
-      </div>
+    <div class="hero-right">
+      <img src="logo.jpg" class="hero-logo-img" alt="LOGO" />
+      <!-- 科技感SVG插画 -->
+      <svg class="hero-svg" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="160" cy="110" rx="120" ry="60" fill="#1A8FFF11"/>
+        <rect x="60" y="80" width="200" height="60" rx="30" fill="#00E0FF22"/>
+        <circle cx="160" cy="110" r="40" fill="#1A8FFF" fill-opacity="0.18"/>
+        <path d="M120 110a40 40 0 0 1 80 0" stroke="#1A8FFF" stroke-width="3" fill="none"/>
+        <circle cx="160" cy="110" r="8" fill="#00E0FF"/>
+        <rect x="150" y="60" width="20" height="20" rx="10" fill="#1A8FFF" fill-opacity="0.5"/>
+        <rect x="150" y="140" width="20" height="20" rx="10" fill="#00E0FF" fill-opacity="0.5"/>
+      </svg>
     </div>
   </section>
-
-  <!-- 业务介绍区块 -->
-  <section class="section fade-in-up" id="services">
-    <div class="section-divider"></div>
-    <h2 style="text-align:center;color:var(--primary);margin-bottom:2rem;">我们的主要业务</h2>
-    <div class="card-list">
-      <div class="card">
-        <h3><span class="card-icon"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="8" width="18" height="8" rx="4" stroke-width="1.5"/><circle cx="7.5" cy="12" r="1.5"/><circle cx="16.5" cy="12" r="1.5"/><path d="M12 8V4m0 0h2m-2 0h-2" stroke-width="1.5" stroke-linecap="round"/></svg> </span>人工智能解决方案</h3>
-        <div class="card-divider"></div>
-        <p>结合AI技术，提升业务效率，实现智能化运营。包括自然语言处理、机器学习、智能客服等。</p>
+  <div class="section-divider"></div>
+  <!-- 三栏区块（业务/品牌/愿景） -->
+  <section class="section-3col fade-in" id="about">
+    <div class="card">
+      <div class="card-icon">🤖</div>
+      <h3>人工智能核心<br><span class="en-sub">AI Core</span></h3>
+      <p>以AI为核心，驱动企业数字化转型，赋能各行各业。<br><span style="font-size:0.98em;color:#1A8FFF;">Empowering industries with AI-driven digital transformation.</span></p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💡</div>
+      <h3>品牌愿景<br><span class="en-sub">Brand Vision</span></h3>
+      <p>让世界充满善意和爱，推动人类可持续发展。<br><span style="font-size:0.98em;color:#1A8FFF;">A world of kindness and sustainable growth.</span></p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌐</div>
+      <h3>科技美学<br><span class="en-sub">Tech Aesthetics</span></h3>
+      <p>融合科技与美学，打造温暖、智能、可持续的未来社会。<br><span style="font-size:0.98em;color:#1A8FFF;">Blending technology and aesthetics for a better future.</span></p>
+    </div>
+  </section>
+  <div class="section-divider"></div>
+  <!-- AI业务流程/优势区块 -->
+  <section class="ai-flow-section fade-in" id="services">
+    <div class="ai-flow-title">AI赋能业务流程 <span class="en-sub">AI Empowered Business Flow</span></div>
+    <div class="ai-flow">
+      <div class="ai-step">
+        <div class="ai-step-icon">🔍</div>
+        <div class="ai-step-title">需求分析<br><span class="en-sub">Needs Analysis</span></div>
+        <div class="ai-step-desc">深入理解客户需求，定制AI解决方案。<br><span style="color:#1A8FFF;">In-depth needs analysis for tailored AI solutions.</span></div>
+        <div class="ai-step-arrow">→</div>
       </div>
-      <div class="card">
-        <h3><span class="card-icon"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 21l-6-6m2-5a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> </span>定制软件开发</h3>
-        <div class="card-divider"></div>
-        <p>根据企业需求量身打造高质量的Web和移动端应用，助力智能化转型。</p>
+      <div class="ai-step">
+        <div class="ai-step-icon">🧠</div>
+        <div class="ai-step-title">AI建模<br><span class="en-sub">AI Modeling</span></div>
+        <div class="ai-step-desc">基于大模型与多模态技术，构建智能系统。<br><span style="color:#1A8FFF;">Building intelligent systems with large models.</span></div>
+        <div class="ai-step-arrow">→</div>
       </div>
-      <div class="card">
-        <h3><span class="card-icon"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="12" width="4" height="8" rx="2"/><rect x="9" y="8" width="4" height="12" rx="2"/><rect x="15" y="4" width="4" height="16" rx="2"/></svg> </span>数据分析与可视化</h3>
-        <div class="card-divider"></div>
-        <p>帮助企业挖掘数据价值，辅助决策制定，驱动AI落地。</p>
+      <div class="ai-step">
+        <div class="ai-step-icon">⚙️</div>
+        <div class="ai-step-title">系统集成<br><span class="en-sub">System Integration</span></div>
+        <div class="ai-step-desc">高效集成AI与企业现有系统，保障稳定运行。<br><span style="color:#1A8FFF;">Seamless integration for robust operation.</span></div>
+        <div class="ai-step-arrow">→</div>
       </div>
-      <div class="card">
-        <h3><span class="card-icon"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10.59 13.41a2 2 0 0 1 0-2.82l2.82-2.82a2 2 0 0 1 2.82 2.82l-2.82 2.82a2 2 0 0 1-2.82-2.82Z" stroke-width="1.5"/><path d="M17 7a5 5 0 0 1 0 7.07l-2.82 2.82a5 5 0 0 1-7.07-7.07l2.82-2.82a5 5 0 0 1 7.07 7.07Z" stroke-width="1.5"/></svg> </span>系统集成与运维</h3>
-        <div class="card-divider"></div>
-        <p>提供稳定可靠的IT基础设施集成与维护服务，保障AI系统高效运行。</p>
+      <div class="ai-step">
+        <div class="ai-step-icon">📈</div>
+        <div class="ai-step-title">数据驱动<br><span class="en-sub">Data Driven</span></div>
+        <div class="ai-step-desc">数据分析与可视化，助力科学决策。<br><span style="color:#1A8FFF;">Data analytics for smart decisions.</span></div>
       </div>
     </div>
   </section>
-
-  <!-- 愿景/广告片/起点区块 -->
-  <section class="section fade-in-up" id="vision">
-    <div class="section-divider"></div>
-    <div class="card-list">
-      <div class="card">
-        <h3><span class="card-icon"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 2v4m10-4v4" stroke-width="1.5"/><circle cx="12" cy="12" r="3"/></svg> </span>广告片内容</h3>
-        <div class="card-divider"></div>
-        <p>展示历史上伟大人物如爱因斯坦、图灵、贝多芬、梵高、香奈儿等的故事，强调他们虽然经历了巨大的困难，但依然改变了世界。鼓励每个人成为独一无二的自己，哪怕只是发出微弱的光芒也能照亮全世界。</p>
-      </div>
-      <div class="card">
-        <h3><span class="card-icon"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M8 12a4 4 0 1 1 8 0v4a4 4 0 1 1-8 0v-4Z" stroke-width="1.5"/><path d="M12 2v2m0 16v2m10-10h-2M4 12H2" stroke-width="1.5"/></svg> </span>我们的起点</h3>
-        <div class="card-divider"></div>
-        <p>专注于开发温暖美丽的仿真人形机器人，首先聚焦于2至6岁儿童陪伴机器人的研发，帮助孩子们建立自信，学会爱自己及他人。采用多模态场景识别、Agent技术和大模型，促进家庭和谐对话，构建美好社会。</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 团队介绍区块 -->
-  <section class="section fade-in-up" id="team">
-    <div class="section-divider"></div>
-    <h2 style="text-align:center;color:var(--primary);margin-bottom:2rem;">团队介绍</h2>
+  <div class="section-divider"></div>
+  <!-- 团队区 -->
+  <section class="team-section fade-in" id="team">
+    <div class="team-title">核心团队 <span class="en-sub">Core Team</span></div>
     <div class="team-list">
       <div class="team-member">
-        <div class="team-avatar"><span>A</span></div>
+        <div class="team-avatar">A</div>
         <div class="team-name">张伟</div>
-        <div class="team-role">创始人 & CEO</div>
+        <div class="team-role">创始人 & CEO<br><span class="en-sub">Founder & CEO</span></div>
         <div class="team-desc">人工智能专家，致力于用科技温暖世界。</div>
       </div>
       <div class="team-member">
-        <div class="team-avatar"><span>B</span></div>
+        <div class="team-avatar">B</div>
         <div class="team-name">李娜</div>
-        <div class="team-role">CTO</div>
+        <div class="team-role">CTO<br><span class="en-sub">Chief Technology Officer</span></div>
         <div class="team-desc">专注AI算法与大模型研发，推动创新落地。</div>
       </div>
       <div class="team-member">
-        <div class="team-avatar"><span>C</span></div>
+        <div class="team-avatar">C</div>
         <div class="team-name">王强</div>
-        <div class="team-role">产品总监</div>
+        <div class="team-role">产品总监<br><span class="en-sub">Product Director</span></div>
         <div class="team-desc">深耕智能硬件与儿童陪伴机器人产品设计。</div>
       </div>
       <div class="team-member">
-        <div class="team-avatar"><span>D</span></div>
+        <div class="team-avatar">D</div>
         <div class="team-name">赵敏</div>
-        <div class="team-role">市场总监</div>
+        <div class="team-role">市场总监<br><span class="en-sub">Marketing Director</span></div>
         <div class="team-desc">品牌战略与市场推广专家。</div>
       </div>
     </div>
   </section>
-
-  <!-- 合作伙伴区块 -->
-  <section class="section fade-in-up" id="partners">
-    <div class="section-divider"></div>
-    <h2 style="text-align:center;color:var(--primary);margin-bottom:2rem;">合作伙伴</h2>
+  <div class="section-divider"></div>
+  <!-- 合作伙伴区 -->
+  <section class="partners-section fade-in" id="partners">
+    <div class="team-title">合作伙伴 <span class="en-sub">Partners</span></div>
     <div class="partners">
       <div class="partner-logos">
         <div class="partner-logo">腾讯</div>
@@ -771,20 +768,20 @@
       </div>
     </div>
   </section>
-
-  <!-- 加入我们/联系我们横向并排区块 -->
-  <section class="section contact-full fade-in-up" style="padding-bottom:0;">
-    <div class="section-divider"></div>
+  <div class="section-divider"></div>
+  <!-- 加入我们/联系我们区块 -->
+  <section class="contact-section fade-in" id="contact">
     <div class="contact-row">
-      <div class="contact-card" id="join">
-        <h3>加入我们</h3>
+      <div class="contact-card">
+        <h3>加入我们<br><span class="en-sub" style="color:#fff8;">Join Us</span></h3>
         <p>站在新时代的开端，AI技术正在重塑我们的未来。如果你心中怀有光明与爱，渴望探索未知并愿意迎接变革，欢迎加入我们共同创造一个更加美好的明天。</p>
-        <a href="mailto:contact@xiangcaoren.com">投递简历：contact@xiangcaoren.com</a>
+        <a href="mailto:contact@xiangcaoren.com" class="contact-btn">投递简历</a>
       </div>
-      <div class="contact-card" id="contact">
-        <h3>联系我们</h3>
+      <div class="contact-card">
+        <h3>联系我们<br><span class="en-sub" style="color:#fff8;">Contact Us</span></h3>
         <p>邮箱：<a href="mailto:contact@xiangcaoren.com">contact@xiangcaoren.com</a></p>
         <p>地址：北京市海淀区中关村创业大街</p>
+        <a href="mailto:contact@xiangcaoren.com" class="contact-btn">发送邮件</a>
       </div>
     </div>
   </section>
@@ -812,11 +809,13 @@
     function toggleMenu() {
       document.getElementById('navMenu').classList.toggle('open');
     }
-    // 动画滚动进入
+    // 动画滚动进入（弹性+队列延迟）
     function onScrollAnim() {
-      document.querySelectorAll('.fade-in').forEach(el => {
+      document.querySelectorAll('.fade-in').forEach((el, i) => {
         const rect = el.getBoundingClientRect();
-        if(rect.top < window.innerHeight - 60) el.classList.add('visible');
+        if(rect.top < window.innerHeight - 60) {
+          setTimeout(() => el.classList.add('visible'), i*120);
+        }
       });
     }
     window.addEventListener('scroll', onScrollAnim);
