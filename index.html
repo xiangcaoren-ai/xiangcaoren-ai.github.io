@@ -538,5 +538,115 @@
       <div>备案号：京ICP备xxxxxxx号</div>
     </div>
   </footer>
+  <!-- 移动端专用菜单弹窗 -->
+  <div class="mobile-menu" id="mobileMenu" style="display:none;">
+    <div class="mobile-menu-logo">
+      <img src="logo.jpg" alt="LOGO" style="width:48px;height:22px;display:block;margin:2.5rem auto 1.2rem auto;" />
+      <div class="mobile-menu-title">香草人科技</div>
+    </div>
+    <button class="mobile-menu-close" id="mobileMenuClose" onclick="closeMobileMenu()">&#10005;</button>
+    <a href="#hero" onclick="closeMobileMenu()">首页</a>
+    <a href="#about" onclick="closeMobileMenu()">关于我们</a>
+    <a href="#services" onclick="closeMobileMenu()">业务</a>
+    <a href="#team" onclick="closeMobileMenu()">团队</a>
+    <a href="#partners" onclick="closeMobileMenu()">合作伙伴</a>
+    <a href="#contact" onclick="closeMobileMenu()">联系我们</a>
+  </div>
+  <style>
+    /* 移动端专用菜单弹窗，彻底兼容微信，优先级最高 */
+    @media (max-width:900px) {
+      .mobile-menu {
+        display: none !important;
+        position: fixed !important;
+        top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important;
+        background: #fff !important;
+        z-index: 99999 !important;
+        text-align: center !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+      }
+      .mobile-menu.show {
+        display: block !important;
+      }
+      .mobile-menu-logo {
+        display: block !important;
+        margin: 0 auto 1.2rem auto !important;
+        text-align: center !important;
+      }
+      .mobile-menu-title {
+        font-size: 20px !important;
+        color: #1A8FFF !important;
+        margin-bottom: 2.2rem !important;
+        font-weight: 700 !important;
+      }
+      .mobile-menu a {
+        display: block !important;
+        width: 100vw !important;
+        font-size: 20px !important;
+        font-weight: 700 !important;
+        color: #1B263B !important;
+        padding: 1.1rem 0 !important;
+        margin: 0 auto !important;
+        border-radius: 0 !important;
+        background: none !important;
+        border: none !important;
+        text-align: center !important;
+        text-decoration: none !important;
+        box-sizing: border-box !important;
+      }
+      .mobile-menu a:active {
+        background: #F0F2F5 !important;
+      }
+      .mobile-menu-close {
+        display: block !important;
+        position: fixed !important;
+        right: 1.2rem !important;
+        top: 1.2rem !important;
+        z-index: 100001 !important;
+        font-size: 2.5rem !important;
+        color: #1B263B !important;
+        background: none !important;
+        border: none !important;
+        cursor: pointer !important;
+        width: 48px !important; height: 48px !important;
+        display: flex !important; align-items: center !important; justify-content: center !important;
+      }
+      .nav-menu, .nav-close { display: none !important; }
+    }
+    @media (min-width:901px) {
+      .mobile-menu { display: none !important; }
+    }
+  </style>
+  <script>
+    // 移动端菜单弹窗控制
+    function isMobileMenu() {
+      return window.innerWidth <= 900;
+    }
+    function openMenu() {
+      if(isMobileMenu()) {
+        document.getElementById('mobileMenu').classList.add('show');
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.getElementById('navMenu').classList.add('open');
+        document.getElementById('navMenu').querySelector('.nav-logo').style.display = 'block';
+        document.getElementById('navClose').style.display = 'flex';
+        document.body.classList.add('menu-open');
+      }
+    }
+    function closeMenu() {
+      if(isMobileMenu()) {
+        closeMobileMenu();
+      } else {
+        document.getElementById('navMenu').classList.remove('open');
+        document.getElementById('navMenu').querySelector('.nav-logo').style.display = 'none';
+        document.getElementById('navClose').style.display = 'none';
+        document.body.classList.remove('menu-open');
+      }
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobileMenu').classList.remove('show');
+      document.body.style.overflow = '';
+    }
+  </script>
 </body>
 </html>
