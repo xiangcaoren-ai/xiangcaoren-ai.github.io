@@ -296,6 +296,81 @@
       .contact-card { max-width: 100%; }
       .contact-full { padding-left: 1.2rem !important; padding-right: 1.2rem !important; }
     }
+    /* 滚动进入动画 */
+    .fade-in-up { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(.4,1.4,.6,1); }
+    .fade-in-up.visible { opacity: 1; transform: none; }
+    /* 分区渐变分割线 */
+    .section-divider {
+      width: 120px; height: 5px; border-radius: 3px;
+      background: var(--divider);
+      margin: 0 auto 2.2rem auto;
+      opacity: 0.22;
+    }
+    /* 卡片玻璃拟态/渐变背景 */
+    .card {
+      background: linear-gradient(135deg, #fff 80%, #e6f9ec 100%);
+      backdrop-filter: blur(2.5px);
+      border: 1.5px solid #e6f9ec;
+    }
+    /* 按钮波纹动效 */
+    .hero-btn, .contact-card a {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-btn .btn-icon {
+      margin-right: 0.6em;
+      font-size: 1.2em;
+      vertical-align: middle;
+    }
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      background: rgba(39,174,96,0.18);
+      pointer-events: none;
+      z-index: 10;
+    }
+    @keyframes ripple {
+      to { transform: scale(2.5); opacity: 0; }
+    }
+    /* 团队头像渐变边框和动画 */
+    .team-avatar {
+      border: 3px solid transparent;
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+      background-image: linear-gradient(135deg, #e6f9ec 60%, #fff 100%), linear-gradient(135deg, #27ae60 40%, #229954 100%);
+      transition: box-shadow 0.3s, transform 0.3s, border 0.3s;
+    }
+    .team-member:hover .team-avatar {
+      box-shadow: 0 0 0 6px #e6f9ec, 0 4px 24px #27ae6011;
+      border: 3px solid #27ae60;
+      transform: scale(1.08) rotate(-3deg);
+    }
+    /* 合作伙伴logo区自动滚动和光晕 */
+    .partner-logos {
+      animation: scroll-x 18s linear infinite;
+      will-change: transform;
+    }
+    .partner-logo {
+      position: relative;
+      transition: filter 0.25s, color 0.25s, box-shadow 0.25s;
+    }
+    .partner-logo:hover::after {
+      content: '';
+      position: absolute; left: -8px; top: -8px; right: -8px; bottom: -8px;
+      border-radius: 16px;
+      box-shadow: 0 0 16px 4px #27ae6044;
+      pointer-events: none;
+    }
+    /* 页脚渐变分割线和品牌icon */
+    .footer-divider {
+      width: 100%; height: 4px; background: var(--divider); opacity: 0.18; margin-bottom: 1.2rem;
+      border-radius: 2px;
+    }
+    .footer-logo {
+      width: 48px; height: 48px; border-radius: 12px; background: #fff; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 0.5rem; box-shadow: 0 2px 8px #27ae6011;
+    }
   </style>
 </head>
 <body>
@@ -319,16 +394,39 @@
 
   <!-- Hero Banner -->
   <section class="hero" id="hero">
+    <!-- 动态粒子SVG装饰 -->
+    <svg class="hero-bg-svg" viewBox="0 0 1440 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="1200" cy="120" r="180" fill="#fff" fill-opacity="0.08"/>
+      <circle cx="300" cy="400" r="120" fill="#fff" fill-opacity="0.10"/>
+      <ellipse cx="900" cy="400" rx="180" ry="60" fill="#fff" fill-opacity="0.07"/>
+      <rect x="200" y="60" width="180" height="40" rx="20" fill="#fff" fill-opacity="0.07"/>
+      <rect x="900" y="60" width="120" height="30" rx="15" fill="#fff" fill-opacity="0.06"/>
+      <circle cx="700" cy="100" r="60" fill="#fff" fill-opacity="0.06"/>
+      <!-- 动态粒子 -->
+      <circle id="particle1" cx="200" cy="120" r="8" fill="#27ae60" fill-opacity="0.18">
+        <animate attributeName="cy" values="120;80;120" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle id="particle2" cx="600" cy="60" r="6" fill="#229954" fill-opacity="0.18">
+        <animate attributeName="cy" values="60;100;60" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <circle id="particle3" cx="1100" cy="200" r="10" fill="#27ae60" fill-opacity="0.13">
+        <animate attributeName="cy" values="200;250;200" dur="6s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
     <div class="hero-logo">
-      <img src="logo.jpg" width="120" height="60" alt="香草人科技LOGO" class="logo-img"/>
+      <img src="logo.jpg" width="130" height="70" alt="香草人科技LOGO" class="logo-img"/>
     </div>
     <div class="hero-title">定义你自己，点亮世界</div>
     <div class="hero-subtitle">专注人工智能与数字化解决方案，温暖每一个心灵</div>
-    <button class="hero-btn" onclick="window.location.href='#about'">了解更多</button>
+    <div style="font-size:1.15rem;opacity:0.85;margin-bottom:2.2rem;">让AI与爱同行，创造可持续发展的美好未来</div>
+    <button class="hero-btn" onclick="window.location.href='#about'">
+      <span class="btn-icon">✨</span>了解更多
+    </button>
   </section>
 
   <!-- 业务/品牌/愿景区块 -->
-  <section class="section" id="about">
+  <section class="section fade-in-up" id="about">
+    <div class="section-divider"></div>
     <div class="card-list">
       <div class="card">
         <h3><span class="card-icon">🌱</span>我们为何出发？</h3>
@@ -350,7 +448,8 @@
   </section>
 
   <!-- 业务介绍区块 -->
-  <section class="section" id="services">
+  <section class="section fade-in-up" id="services">
+    <div class="section-divider"></div>
     <h2 style="text-align:center;color:var(--primary);margin-bottom:2rem;">我们的主要业务</h2>
     <div class="card-list">
       <div class="card">
@@ -377,7 +476,8 @@
   </section>
 
   <!-- 愿景/广告片/起点区块 -->
-  <section class="section" id="vision">
+  <section class="section fade-in-up" id="vision">
+    <div class="section-divider"></div>
     <div class="card-list">
       <div class="card">
         <h3><span class="card-icon">🎬</span>广告片内容</h3>
@@ -393,7 +493,8 @@
   </section>
 
   <!-- 团队介绍区块 -->
-  <section class="section" id="team">
+  <section class="section fade-in-up" id="team">
+    <div class="section-divider"></div>
     <h2 style="text-align:center;color:var(--primary);margin-bottom:2rem;">团队介绍</h2>
     <div class="team-list">
       <div class="team-member">
@@ -424,7 +525,8 @@
   </section>
 
   <!-- 合作伙伴区块 -->
-  <section class="section" id="partners">
+  <section class="section fade-in-up" id="partners">
+    <div class="section-divider"></div>
     <h2 style="text-align:center;color:var(--primary);margin-bottom:2rem;">合作伙伴</h2>
     <div class="partners">
       <div class="partner-logos">
@@ -441,7 +543,8 @@
   </section>
 
   <!-- 加入我们/联系我们横向并排区块 -->
-  <section class="section contact-full" style="padding-bottom:0;">
+  <section class="section contact-full fade-in-up" style="padding-bottom:0;">
+    <div class="section-divider"></div>
     <div class="contact-row">
       <div class="contact-card" id="join">
         <h3>加入我们</h3>
@@ -457,18 +560,36 @@
   </section>
 
   <footer>
+    <div class="footer-divider"></div>
+    <div class="footer-logo"><img src="logo.jpg" width="36" height="36" alt="LOGO" style="object-fit:contain;border-radius:8px;"/></div>
     <p>&copy; 2025 北京香草人科技有限公司 | 保留所有权利</p>
     <p>备案号：京ICP备xxxxxxx号</p>
   </footer>
 
-  <!-- Hero Banner装饰SVG -->
-  <svg class="hero-bg-svg" viewBox="0 0 1440 520" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="1200" cy="120" r="180" fill="#fff" fill-opacity="0.08"/>
-    <circle cx="300" cy="400" r="120" fill="#fff" fill-opacity="0.10"/>
-    <ellipse cx="900" cy="400" rx="180" ry="60" fill="#fff" fill-opacity="0.07"/>
-    <rect x="200" y="60" width="180" height="40" rx="20" fill="#fff" fill-opacity="0.07"/>
-    <rect x="900" y="60" width="120" height="30" rx="15" fill="#fff" fill-opacity="0.06"/>
-    <circle cx="700" cy="100" r="60" fill="#fff" fill-opacity="0.06"/>
-  </svg>
+  <script>
+    // 滚动进入动画
+    function onScrollFadeIn() {
+      document.querySelectorAll('.fade-in-up').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if(rect.top < window.innerHeight - 60) {
+          el.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', onScrollFadeIn);
+    window.addEventListener('DOMContentLoaded', onScrollFadeIn);
+    // 按钮波纹动效
+    document.querySelectorAll('.hero-btn, .contact-card a').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.left = (e.offsetX - 10) + 'px';
+        ripple.style.top = (e.offsetY - 10) + 'px';
+        ripple.style.width = ripple.style.height = '20px';
+        this.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+      });
+    });
+  </script>
 </body>
 </html>
