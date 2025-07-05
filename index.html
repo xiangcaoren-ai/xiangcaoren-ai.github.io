@@ -9,17 +9,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #27ae60;
-      --secondary: #229954;
-      --blue: #1e90ff;
-      --accent: #e6f9ec;
-      --dark: #222c36;
+      --primary: #1A8FFF;
+      --secondary: #00E0FF;
+      --blue: #1A8FFF;
+      --accent: #F4F8FB;
+      --dark: #1B263B;
       --light: #fff;
-      --gradient: linear-gradient(90deg, #27ae60 0%, #229954 50%, #1e90ff 100%);
+      --gradient: linear-gradient(90deg, #1A8FFF 0%, #00E0FF 100%);
       --card-radius: 22px;
-      --card-shadow: 0 8px 32px rgba(39,174,96,0.13), 0 1.5px 8px rgba(44,62,80,0.06);
-      --divider: linear-gradient(90deg, #27ae60 0%, #229954 50%, #1e90ff 100%);
-      --partner-bg: linear-gradient(90deg, #e6f9ec 0%, #f3fdf6 100%);
+      --card-shadow: 0 8px 32px rgba(26,143,255,0.13), 0 1.5px 8px rgba(27,38,59,0.06);
+      --divider: linear-gradient(90deg, #1A8FFF 0%, #00E0FF 100%);
+      --partner-bg: linear-gradient(90deg, #F4F8FB 0%, #E6F9FF 100%);
     }
     html, body {
       margin: 0; padding: 0; box-sizing: border-box;
@@ -75,7 +75,7 @@
       filter: drop-shadow(0 4px 16px rgba(39,174,96,0.18));
     }
     .hero-title {
-      background: linear-gradient(90deg, #27ae60 0%, #1e90ff 100%);
+      background: linear-gradient(90deg, #1A8FFF 0%, #00E0FF 100%);
       background-size: 200% 200%;
       animation: hero-title-gradient 6s linear infinite;
       -webkit-background-clip: text;
@@ -102,7 +102,7 @@
     }
     .hero-divider {
       width: 90px; height: 4px; border-radius: 2px;
-      background: linear-gradient(90deg, #27ae60 0%, #1e90ff 100%);
+      background: linear-gradient(90deg, #1A8FFF 0%, #00E0FF 100%);
       margin: 0.7rem auto 2.2rem auto;
       opacity: 0.22;
       box-shadow: 0 0 12px #1e90ff44;
@@ -123,19 +123,24 @@
       0% { transform: translateY(0); }
       100% { transform: translateY(-6px); }
     }
-    .hero-btn::after {
+    .hero-btn::before {
       content: '';
-      position: absolute; left: -60%; top: 0; width: 60%; height: 100%;
-      background: linear-gradient(120deg, #fff6 0%, #1e90ff33 100%);
-      filter: blur(8px);
-      opacity: 0.5;
-      transform: skewX(-20deg);
-      transition: left 0.5s;
-      z-index: 1;
+      position: absolute; left: 50%; top: 50%; width: 0; height: 0;
+      background: radial-gradient(circle, #00E0FF55 0%, #1A8FFF44 80%, transparent 100%);
+      border-radius: 50%; opacity: 0; pointer-events: none;
+      transform: translate(-50%, -50%) scale(1);
+      transition: opacity 0.3s, width 0.3s, height 0.3s;
+      z-index: 0;
     }
-    .hero-btn:hover::after {
-      left: 100%;
-      transition: left 0.7s;
+    .hero-btn:hover::before {
+      width: 180px; height: 180px; opacity: 0.25;
+    }
+    .hero-btn:active::before {
+      width: 220px; height: 220px; opacity: 0.18;
+      transition: width 0.2s, height 0.2s, opacity 0.2s;
+    }
+    .hero-btn .ripple {
+      background: radial-gradient(circle, #00E0FF55 0%, #1A8FFF44 80%, transparent 100%);
     }
     .hero-btn .btn-icon {
       display: inline-block;
@@ -186,7 +191,7 @@
       transition: transform 0.28s cubic-bezier(.4,1.4,.6,1), box-shadow 0.28s;
       position: relative;
       overflow: hidden;
-      border-image: linear-gradient(120deg, #27ae60 0%, #1e90ff 100%) 1;
+      border-image: linear-gradient(120deg, #1A8FFF 0%, #00E0FF 100%) 1;
       border-image-slice: 1;
       border-width: 1.5px;
       border-style: solid;
@@ -204,8 +209,8 @@
       z-index: 1;
     }
     .card:hover {
-      box-shadow: 0 0 0 12px #1e90ff33, 0 32px 80px #27ae6011, 0 2px 12px #1e90ff22;
-      border-image: linear-gradient(270deg, #1e90ff 0%, #27ae60 100%) 1;
+      box-shadow: 0 0 0 12px #00E0FF33, 0 32px 80px #1A8FFF11, 0 2px 12px #1A8FFF22;
+      border-image: linear-gradient(270deg, #00E0FF 0%, #1A8FFF 100%) 1;
       transform: translateY(-18px) scale(1.08);
     }
     .card h3 {
@@ -234,7 +239,7 @@
     .card p { color: #333; font-size: 1.04rem; }
     .card-divider {
       width: 60px; height: 4px; border-radius: 2px;
-      background: linear-gradient(90deg, #27ae60 0%, #1e90ff 100%);
+      background: linear-gradient(90deg, #1A8FFF 0%, #00E0FF 100%);
       margin: 1.2rem auto 0 auto;
       opacity: 0.18;
       box-shadow: 0 0 12px #1e90ff44;
@@ -246,11 +251,11 @@
     }
     .card-bottom-divider {
       width: 60px; height: 4px; border-radius: 2px;
-      background: linear-gradient(90deg, #27ae60 0%, #1e90ff 100%);
+      background: linear-gradient(90deg, #1A8FFF 0%, #00E0FF 100%);
       margin: 1.2rem auto 0 auto;
       opacity: 0.18;
       box-shadow: 0 0 12px #1e90ff44;
-      animation: card-divider-glow 2.5s ease-in-out infinite alternate;
+      animation: card-divider-glow 2.5s ease-in-out infinite alternate, card-divider-move 4s linear infinite; background-size: 200% 100%;
     }
     /* 团队区 */
     .team-list {
@@ -290,8 +295,8 @@
     .team-desc { font-size: 0.95rem; color: #555; }
     /* 合作伙伴区 */
     .partners {
-      background: linear-gradient(120deg, #e6f9ec 60%, #d0eaff 100%);
-      box-shadow: 0 8px 32px #1e90ff11, var(--card-shadow);
+      background: linear-gradient(120deg, #F4F8FB 60%, #E6F9FF 100%);
+      box-shadow: 0 8px 32px #1A8FFF11, var(--card-shadow);
       border-radius: var(--card-radius);
       padding: 2.2rem 1.2rem; margin: 2rem 0;
       display: flex; flex-direction: column; align-items: center;
@@ -338,9 +343,9 @@
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.3s;
-      background: conic-gradient(from 0deg, #27ae60, #1e90ff, #27ae60 100%);
+      background: conic-gradient(from 0deg, #1A8FFF, #00E0FF, #1A8FFF 100%);
       filter: blur(6px);
-      animation: logo-glow 2.5s linear infinite, logo-glow-move 4s linear infinite;
+      animation: logo-glow 2.5s linear infinite, logo-glow-move 4s linear infinite, logo-glow-rot 3.5s linear infinite;
     }
     .partner-logo:hover::after {
       opacity: 0.5;
@@ -353,6 +358,10 @@
     @keyframes logo-glow-move {
       0% { background-position: 0% 50%; }
       100% { background-position: 100% 50%; }
+    }
+    @keyframes logo-glow-rot {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
     @keyframes scroll-x {
       0% { transform: translateX(0); }
@@ -401,18 +410,14 @@
     }
     /* 页脚 */
     footer {
-      background: linear-gradient(120deg, #e6f9ec 60%, #d0eaff 100%);
-      color: #fff; text-align: center;
-      padding: 2rem 1rem; margin-top: 3rem; font-size: 1rem;
       position: relative;
       overflow: hidden;
+      background: linear-gradient(120deg, #F4F8FB 60%, #E6F9FF 100%);
     }
     footer::before {
       content: '';
       position: absolute; left: 0; top: 0; width: 100%; height: 32px;
       background: radial-gradient(ellipse at 50% 0%, #fff8 60%, #fff0 100%);
-      z-index: 1;
-      pointer-events: none;
       animation: footer-glow-move 8s linear infinite;
       background-size: 200% 100%;
     }
@@ -454,7 +459,7 @@
       opacity: 1;
     }
     .footer-social svg {
-      background: linear-gradient(120deg, #27ae60 0%, #1e90ff 100%);
+      background: linear-gradient(120deg, #1A8FFF 0%, #00E0FF 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -555,11 +560,11 @@
     }
     /* 团队头像圆环渐变动画，悬停光圈 */
     @keyframes avatar-gradient {
-      0% { border-color: #27ae60; }
-      25% { border-color: #1e90ff; }
-      50% { border-color: #27ae60; }
-      75% { border-color: #1e90ff; }
-      100% { border-color: #27ae60; }
+      0% { border-color: #1A8FFF; }
+      25% { border-color: #00E0FF; }
+      50% { border-color: #1A8FFF; }
+      75% { border-color: #00E0FF; }
+      100% { border-color: #1A8FFF; }
     }
     .footer-divider {
       width: 100%; height: 4px; background: var(--divider); opacity: 0.18; margin-bottom: 1.2rem;
