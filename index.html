@@ -10,1042 +10,327 @@
   <style>
     :root {
       --primary: #1A8FFF;
-      --secondary: #00E0FF;
-      --blue: #1A8FFF;
-      --accent: #F4F8FB;
-      --dark: #1B263B;
-      --light: #fff;
-      --gradient: linear-gradient(90deg, #1A8FFF 0%, #00E0FF 100%);
-      --card-radius: 22px;
-      --card-shadow: 0 8px 32px rgba(26,143,255,0.13), 0 1.5px 8px rgba(27,38,59,0.06);
-      --divider: linear-gradient(90deg, #1A8FFF 0%, #00E0FF 100%);
-      --partner-bg: linear-gradient(90deg, #F4F8FB 0%, #E6F9FF 100%);
-      --anim-duration: 0.7s;
+      --accent: #F7F9FB;
+      --text: #1B263B;
+      --muted: #7B8A9A;
+      --border: #E3EAF3;
+      --card-bg: #fff;
+      --footer-bg: #F4F6F8;
+      --radius: 18px;
+      --maxw: 980px;
     }
     html, body {
       margin: 0; padding: 0; box-sizing: border-box;
       font-family: 'Montserrat', 'Noto Sans SC', Arial, sans-serif;
       background: var(--accent);
-      color: var(--dark);
-      scroll-behavior: smooth;
-      opacity: 0;
-      animation: page-fadein 1.2s cubic-bezier(.4,1.4,.6,1) 0.1s forwards;
+      color: var(--text);
+      font-size: 18px;
+      line-height: 1.7;
+      letter-spacing: 0.01em;
     }
-    @keyframes page-fadein {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    /* 顶部导航栏 */
+    a { color: var(--primary); text-decoration: none; transition: color 0.2s; }
+    a:hover { text-decoration: underline; color: #156fd1; }
+    /* 顶部极简导航 */
     nav {
-      width: 100%;
-      background: var(--light);
-      box-shadow: 0 2px 12px rgba(44,62,80,0.06);
-      position: fixed; top: 0; left: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0.5rem 2rem;
+      width: 100%; position: fixed; top: 0; left: 0; z-index: 100;
+      background: #fff; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      height: 64px; box-sizing: border-box;
+    }
+    .nav-inner {
+      width: 100%; max-width: var(--maxw); display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem;
     }
     .nav-logo {
       display: flex; align-items: center; gap: 0.7rem;
     }
     .nav-logo img {
-      height: 38px; width: 70px;
+      height: 38px; width: 68px; object-fit: contain;
     }
     .nav-title {
-      font-size: 1.3rem; font-weight: 700; color: var(--primary);
-      letter-spacing: 2px;
+      font-size: 1.18rem; font-weight: 700; color: var(--primary); letter-spacing: 1.5px;
     }
     .nav-menu {
-      display: flex; gap: 2rem;
+      display: flex; gap: 2.2rem;
     }
     .nav-menu a {
-      color: var(--dark); text-decoration: none; font-weight: 500; font-size: 1rem;
-      transition: color 0.2s;
+      color: var(--text); font-weight: 500; font-size: 1.05rem; position: relative; padding: 2px 0;
+    }
+    .nav-menu a::after {
+      content: '';
+      display: block;
+      width: 0; height: 2px;
+      background: var(--primary);
+      transition: width 0.2s;
+      border-radius: 2px;
+      margin-top: 2px;
     }
     .nav-menu a:hover { color: var(--primary); }
-    /* Hero Banner */
+    .nav-menu a:hover::after { width: 100%; }
+    /* Hero区 */
     .hero {
-      min-height: 540px;
-      background: var(--gradient);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center;
-      padding-top: 110px;
-      color: #fff;
-      position: relative;
-      overflow: hidden;
+      display: flex; align-items: center; justify-content: space-between;
+      min-height: 480px;
+      max-width: var(--maxw); margin: 0 auto; padding: 120px 0 60px 0;
+      gap: 2.5rem;
     }
-    .hero-logo {
-      margin-bottom: 1.5rem;
-      z-index: 2;
-    }
-    .hero-logo img {
-      width: 130px; height: 70px;
-      filter: drop-shadow(0 4px 16px rgba(39,174,96,0.18));
+    .hero-left {
+      flex: 1.2; display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+      min-width: 320px;
     }
     .hero-title {
-      background: linear-gradient(90deg, #1A8FFF 0%, #00E0FF 100%);
-      background-size: 200% 200%;
-      animation: hero-title-gradient 6s linear infinite;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
-      font-size: 3.6rem;
-      font-weight: 900;
-      letter-spacing: 2.5px;
-      margin-bottom: 1.2rem;
-      text-shadow: 0 8px 36px rgba(39,174,96,0.18), 0 2px 8px #1e90ff33;
-      z-index: 2;
+      font-size: 2.8rem; font-weight: 900; color: var(--text); margin-bottom: 1.2rem; letter-spacing: 2px;
     }
-    @keyframes hero-title-gradient {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
+    .hero-en {
+      font-size: 1.1rem; color: var(--muted); font-weight: 600; margin-bottom: 1.2rem; letter-spacing: 1.5px;
     }
-    .hero-subtitle {
-      font-size: 1.5rem;
-      margin-bottom: 1.2rem;
-      font-weight: 400;
-      z-index: 2;
-      text-shadow: 0 2px 8px #1e90ff22;
-    }
-    .hero-divider {
-      width: 90px; height: 4px; border-radius: 2px;
-      background: linear-gradient(90deg, #1A8FFF 0%, #00E0FF 100%);
-      margin: 0.7rem auto 2.2rem auto;
-      opacity: 0.22;
-      box-shadow: 0 0 12px #1e90ff44;
-      animation: hero-divider-glow 2.5s ease-in-out infinite alternate;
-    }
-    @keyframes hero-divider-glow {
-      0% { box-shadow: 0 0 8px #1e90ff22; }
-      100% { box-shadow: 0 0 24px #27ae6044; }
+    .hero-desc {
+      font-size: 1.18rem; color: var(--muted); margin-bottom: 2.2rem;
     }
     .hero-btn {
-      position: relative;
-      overflow: hidden;
-      animation: hero-btn-float 3s ease-in-out infinite alternate;
-      box-shadow: 0 4px 18px #1e90ff22;
-      transition: transform 0.22s cubic-bezier(.4,1.4,.6,1), box-shadow 0.22s;
+      background: var(--primary); color: #fff; border: none; border-radius: 32px;
+      padding: 1.1rem 2.8rem; font-size: 1.15rem; font-weight: 700;
+      cursor: pointer; transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+      letter-spacing: 1px;
+      box-shadow: none;
     }
-    @keyframes hero-btn-float {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-6px); }
+    .hero-btn:hover {
+      background: #156fd1; color: #fff; transform: translateY(-2px) scale(1.03);
     }
-    .hero-btn::before {
-      content: '';
-      position: absolute; left: 50%; top: 50%; width: 0; height: 0;
-      background: radial-gradient(circle, #00E0FF55 0%, #1A8FFF44 80%, transparent 100%);
-      border-radius: 50%; opacity: 0; pointer-events: none;
-      transform: translate(-50%, -50%) scale(1);
-      transition: opacity 0.3s, width 0.3s, height 0.3s;
-      z-index: 0;
+    .hero-right {
+      flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-width: 220px;
     }
-    .hero-btn:hover::before {
-      width: 180px; height: 180px; opacity: 0.25;
+    .hero-logo-img {
+      width: 140px; height: 70px; object-fit: contain; margin-bottom: 1.5rem;
+      border-radius: 12px; background: #fff; border: 1px solid var(--border);
     }
-    .hero-btn:active::before {
-      width: 220px; height: 220px; opacity: 0.18;
-      transition: width 0.2s, height 0.2s, opacity 0.2s;
+    /* 分区通用 */
+    section { max-width: var(--maxw); margin: 0 auto; margin-bottom: 3.5rem; }
+    .section-title {
+      font-size: 1.5rem; font-weight: 800; color: var(--text); margin-bottom: 0.5rem; letter-spacing: 1.2px;
     }
-    .hero-btn .ripple {
-      background: radial-gradient(circle, #00E0FF55 0%, #1A8FFF44 80%, transparent 100%);
+    .section-en {
+      font-size: 1rem; color: var(--muted); font-weight: 600; margin-bottom: 1.5rem; letter-spacing: 1.2px;
     }
-    .hero-btn .btn-icon {
-      display: inline-block;
-      margin-right: 0.6em;
-      font-size: 1.2em;
-      vertical-align: middle;
-      transition: transform 0.4s cubic-bezier(.4,1.4,.6,1);
-    }
-    .hero-btn:hover .btn-icon {
-      transform: rotate(20deg) scale(1.2);
-    }
-    .hero-btn:active {
-      filter: blur(1.5px) brightness(1.1);
-    }
-    /* Hero装饰SVG */
-    .hero-bg-svg {
-      position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 1;
-      pointer-events: none;
-    }
-    .hero-bg-svg circle.pulse {
-      animation: hero-pulse 2.5s infinite alternate;
-    }
-    @keyframes hero-pulse {
-      0% { r: 8; opacity: 0.18; }
-      100% { r: 14; opacity: 0.32; }
-    }
-    .hero-bg-svg .pulse2 {
-      animation: hero-pulse2 3.2s infinite alternate;
-    }
-    @keyframes hero-pulse2 {
-      0% { r: 6; opacity: 0.13; }
-      100% { r: 12; opacity: 0.28; }
-    }
-    /* 卡片分区 */
-    .section {
-      max-width: 1100px; margin: 0 auto; padding: 3.5rem 1.2rem 2.5rem 1.2rem;
-    }
-    .card-list {
-      display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;
-    }
+    /* 业务/品牌/愿景区块 */
+    .card-list { display: flex; gap: 2.2rem; margin-bottom: 2.5rem; }
     .card {
-      background: #fff;
-      border-radius: var(--card-radius);
-      box-shadow: var(--card-shadow);
-      padding: 2.2rem 1.7rem 2rem 1.7rem;
-      min-width: 260px; flex: 1 1 260px; max-width: 340px;
-      display: flex; flex-direction: column; align-items: flex-start;
-      transition: transform 0.28s cubic-bezier(.4,1.4,.6,1), box-shadow 0.28s;
-      position: relative;
-      overflow: hidden;
-      border-image: linear-gradient(120deg, #1A8FFF 0%, #00E0FF 100%) 1;
-      border-image-slice: 1;
-      border-width: 1.5px;
-      border-style: solid;
-      box-shadow: var(--card-shadow), 0 0 0 0 #1e90ff00;
-      z-index: 2;
-      background: linear-gradient(135deg, #fff 80%, #e6f9ec 100%);
-      backdrop-filter: blur(2.5px);
+      flex: 1 1 0; min-width: 220px; background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border);
+      box-shadow: none; padding: 2.2rem 1.5rem 2rem 1.5rem; display: flex; flex-direction: column; align-items: flex-start;
+      transition: border 0.2s, box-shadow 0.2s, transform 0.2s;
     }
-    .card::before {
-      content: '';
-      position: absolute; left: 0; top: 0; width: 100%; height: 28px;
-      background: linear-gradient(180deg, #fff8 60%, #fff0 100%);
-      border-radius: var(--card-radius) var(--card-radius) 0 0;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .card:hover {
-      box-shadow: 0 0 0 12px #00E0FF33, 0 32px 80px #1A8FFF11, 0 2px 12px #1A8FFF22;
-      border-image: linear-gradient(270deg, #00E0FF 0%, #1A8FFF 100%) 1;
-      transform: translateY(-18px) scale(1.08);
-    }
-    .card h3 {
-      color: var(--primary); margin-bottom: 0.7rem; font-size: 1.28rem; font-weight: 700;
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .card .card-icon {
-      display: inline-block;
-      width: 1.6em; height: 1.6em;
-      margin-right: 0.3rem; vertical-align: middle;
-      color: var(--blue);
-      stroke-width: 1.5;
-    }
-    .card .card-icon svg {
-      animation: icon-gradient-move 4s linear infinite, icon-rotate 1.8s cubic-bezier(.4,1.4,.6,1) infinite alternate;
-    }
-    @keyframes icon-gradient-move {
-      0% { filter: drop-shadow(0 2px 8px #1e90ff33); }
-      50% { filter: drop-shadow(0 2px 16px #27ae6044); }
-      100% { filter: drop-shadow(0 2px 8px #1e90ff33); }
-    }
-    @keyframes icon-rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(8deg); }
-    }
-    .card p { color: #333; font-size: 1.04rem; }
-    .card-divider {
-      width: 60px; height: 4px; border-radius: 2px;
-      background: linear-gradient(90deg, #1A8FFF 0%, #00E0FF 100%);
-      margin: 1.2rem auto 0 auto;
-      opacity: 0.18;
-      box-shadow: 0 0 12px #1e90ff44;
-      animation: card-divider-glow 2.5s ease-in-out infinite alternate;
-    }
-    @keyframes card-divider-glow {
-      0% { box-shadow: 0 0 8px #1e90ff22; }
-      100% { box-shadow: 0 0 24px #27ae6044; }
-    }
-    .card-bottom-divider {
-      width: 60px; height: 4px; border-radius: 2px;
-      background: linear-gradient(90deg, #1A8FFF 0%, #00E0FF 100%);
-      margin: 1.2rem auto 0 auto;
-      opacity: 0.18;
-      box-shadow: 0 0 12px #1e90ff44;
-      animation: card-divider-glow 2.5s ease-in-out infinite alternate, card-divider-move 4s linear infinite; background-size: 200% 100%;
-    }
-    /* 团队区 */
-    .team-list {
-      display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;
-    }
+    .card:hover { border: 1.5px solid var(--primary); transform: translateY(-4px) scale(1.01); }
+    .card-title { font-size: 1.13rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+    .card-desc { color: var(--muted); font-size: 1.02rem; }
+    /* 团队区块 */
+    .team-list { display: flex; gap: 1.5rem; flex-wrap: wrap; }
     .team-member {
-      background: #fff; border-radius: var(--card-radius); box-shadow: var(--card-shadow);
-      padding: 1.7rem 1.1rem; width: 190px; text-align: center;
-      display: flex; flex-direction: column; align-items: center;
-      transition: transform 0.32s cubic-bezier(.4,1.4,.6,1), box-shadow 0.32s;
-      position: relative;
+      background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 1.5rem 1.2rem; min-width: 180px; max-width: 220px; display: flex; flex-direction: column; align-items: center;
+      box-shadow: none; transition: border 0.2s, transform 0.2s;
     }
-    .team-member:hover {
-      transform: translateY(-16px) scale(1.12);
-      box-shadow: 0 0 0 18px #1e90ff22, 0 0 32px #27ae6011;
-    }
+    .team-member:hover { border: 1.5px solid var(--primary); transform: translateY(-2px) scale(1.02); }
     .team-avatar {
-      border: 3px solid transparent;
-      background-clip: padding-box, border-box;
-      background-origin: padding-box, border-box;
-      background-image: linear-gradient(135deg, #e6f9ec 60%, #fff 100%), linear-gradient(135deg, #27ae60 40%, #1e90ff 100%);
-      transition: box-shadow 0.3s, transform 0.3s, border 0.3s;
-      position: relative;
-      overflow: hidden;
-      animation: avatar-gradient 2.2s linear infinite, avatar-jump 1.8s cubic-bezier(.4,1.4,.6,1) infinite alternate;
-    }
-    .team-avatar span {
-      font-size: 2.3rem; color: var(--primary); font-weight: 700; letter-spacing: 1px; z-index: 2; position: relative;
-    }
-    .team-member:hover .team-avatar {
-      box-shadow: 0 0 0 24px #1e90ff33, 0 0 32px #27ae6011;
-      border: 3px solid #1e90ff;
-      transform: scale(1.22) rotate(-3deg);
+      width: 56px; height: 56px; border-radius: 50%; background: #F4F6F8; margin-bottom: 0.7rem; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; color: var(--primary); font-weight: 700; letter-spacing: 1px; border: 1px solid var(--border);
     }
     .team-name { font-weight: 700; margin-bottom: 0.2rem; }
-    .team-role { color: var(--secondary); font-size: 0.98rem; margin-bottom: 0.5rem; }
-    .team-desc { font-size: 0.95rem; color: #555; }
-    /* 合作伙伴区 */
-    .partners {
-      background: linear-gradient(120deg, #F4F8FB 60%, #E6F9FF 100%);
-      box-shadow: 0 8px 32px #1A8FFF11, var(--card-shadow);
-      border-radius: var(--card-radius);
-      padding: 2.2rem 1.2rem; margin: 2rem 0;
-      display: flex; flex-direction: column; align-items: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .partners::before {
-      content: '';
-      position: absolute; left: 0; top: 0; width: 100%; height: 32px;
-      background: linear-gradient(90deg, #fff8 60%, #fff0 100%);
-      border-radius: var(--card-radius) var(--card-radius) 0 0;
-      pointer-events: none;
-      z-index: 1;
-      animation: partners-glow-move 8s linear infinite;
-      background-size: 200% 100%;
-    }
-    @keyframes partners-glow-move {
-      0% { background-position: 0% 0%; }
-      100% { background-position: 100% 0%; }
-    }
-    .partner-logos {
-      display: flex; gap: 2.5rem; flex-wrap: wrap; align-items: center; justify-content: center;
-      margin-top: 1rem;
-      animation: scroll-x 18s linear infinite;
-      width: 100%;
-      animation-play-state: running;
-      touch-action: pan-x;
-    }
+    .team-role { color: var(--muted); font-size: 0.98rem; margin-bottom: 0.5rem; }
+    .team-desc { font-size: 0.97rem; color: #555; text-align: center; }
+    /* 合作伙伴区块 */
+    .partners-list { display: flex; gap: 2rem; flex-wrap: wrap; align-items: center; }
     .partner-logo {
-      width: 90px; height: 48px; background: #fff; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem; color: #bbb; font-weight: 700;
-      box-shadow: 0 1px 8px rgba(44,62,80,0.06);
-      filter: grayscale(1) brightness(1.1);
-      transition: filter 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s;
-      position: relative;
-      z-index: 2;
-      animation: logo-jump 2.2s cubic-bezier(.4,1.4,.6,1) infinite alternate;
+      width: 80px; height: 40px; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--primary); font-weight: 700; border: 1px solid var(--border); box-shadow: none; transition: border 0.2s, transform 0.2s;
     }
-    .partner-logo::after {
-      content: '';
-      position: absolute; left: -10px; top: -10px; right: -10px; bottom: -10px;
-      border-radius: 16px;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s;
-      background: conic-gradient(from 0deg, #1A8FFF, #00E0FF, #1A8FFF 100%);
-      filter: blur(6px);
-      animation: logo-glow 2.5s linear infinite, logo-glow-move 4s linear infinite, logo-glow-rot 3.5s linear infinite;
-    }
-    .partner-logo:hover::after {
-      opacity: 0.5;
-    }
-    @keyframes logo-glow {
-      0% { filter: blur(6px) brightness(1); }
-      50% { filter: blur(10px) brightness(1.2); }
-      100% { filter: blur(6px) brightness(1); }
-    }
-    @keyframes logo-glow-move {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
-    @keyframes logo-glow-rot {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    @keyframes scroll-x {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-30%); }
-    }
-    /* 加入我们/联系我们横向并排区块 */
-    .section {
-      padding-bottom: 0;
-    }
-    .contact-row {
-      display: flex;
-      gap: 2rem;
-      justify-content: center;
-      align-items: stretch;
-      margin-bottom: 0;
-    }
+    .partner-logo:hover { border: 1.5px solid var(--primary); transform: scale(1.06); }
+    /* 加入我们/联系我们区块 */
+    .contact-row { display: flex; gap: 2rem; justify-content: center; align-items: stretch; }
     .contact-card {
-      background: linear-gradient(135deg, #27ae60 80%, #229954 100%);
-      color: #fff;
-      border-radius: var(--card-radius);
-      padding: 2.7rem 1.7rem;
-      text-align: center;
-      width: 50%;
-      box-shadow: var(--card-shadow);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin-bottom: 2.5rem;
-      position: relative;
-      overflow: hidden;
-      transition: box-shadow 0.25s, transform 0.25s;
+      background: var(--card-bg); color: var(--text); border-radius: var(--radius); padding: 2.2rem 1.7rem; text-align: left; flex: 1 1 0; min-width: 220px; max-width: 420px; border: 1px solid var(--border); box-shadow: none; display: flex; flex-direction: column; justify-content: center; margin-bottom: 2.5rem; position: relative; transition: border 0.2s, transform 0.2s;
     }
-    .contact-card:hover {
-      box-shadow: 0 16px 48px rgba(39,174,96,0.18), 0 2px 12px rgba(44,62,80,0.10);
-      transform: translateY(-8px) scale(1.03);
-    }
-    .contact-card h3 { font-size: 1.5rem; margin-bottom: 1rem; font-weight: 800; letter-spacing: 1px; }
-    .contact-card p { font-size: 1.13rem; margin-bottom: 1.2rem; }
-    .contact-card a { color: #fff; text-decoration: underline; font-weight: 700; }
-    @media (max-width: 900px) {
-      .contact-row { flex-direction: column; gap: 1.5rem; }
-      .contact-card { width: 100%; }
-      .contact-full { padding-left: 1.2rem !important; padding-right: 1.2rem !important; }
-      .hero-title { font-size: 2.2rem; }
-      .hero-subtitle { font-size: 1.1rem; }
-    }
-    /* 页脚 */
+    .contact-card:hover { border: 1.5px solid var(--primary); transform: translateY(-2px) scale(1.01); }
+    .contact-card h3 { font-size: 1.18rem; margin-bottom: 1rem; font-weight: 800; letter-spacing: 1px; color: var(--text); }
+    .contact-card p { font-size: 1.08rem; margin-bottom: 1.2rem; color: var(--muted); }
+    .contact-card a { color: var(--primary); text-decoration: underline; font-weight: 700; }
+    .contact-card .contact-btn { background: var(--primary); color: #fff; border: none; border-radius: 30px; padding: 0.8rem 2.2rem; font-size: 1.05rem; font-weight: 700; box-shadow: none; cursor: pointer; transition: background 0.2s, color 0.2s; margin-top: 1.2rem; }
+    .contact-card .contact-btn:hover { background: #156fd1; color: #fff; }
+    /* 页脚极简 */
     footer {
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(120deg, #F4F8FB 60%, #E6F9FF 100%);
+      background: var(--footer-bg); color: var(--muted); text-align: center; padding: 2rem 1rem; margin-top: 3rem; font-size: 1rem; border-top: 1px solid var(--border);
     }
-    footer::before {
-      content: '';
-      position: absolute; left: 0; top: 0; width: 100%; height: 32px;
-      background: radial-gradient(ellipse at 50% 0%, #fff8 60%, #fff0 100%);
-      animation: footer-glow-move 8s linear infinite;
-      background-size: 200% 100%;
-    }
-    @keyframes footer-glow-move {
-      0% { background-position: 0% 0%; }
-      100% { background-position: 100% 0%; }
-    }
-    .footer-divider {
-      width: 100%; height: 4px; background: var(--divider); opacity: 0.18; margin-bottom: 1.2rem;
-      border-radius: 2px;
-    }
-    .footer-logo {
-      width: 48px; height: 48px; border-radius: 12px; background: #fff; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 0.5rem; box-shadow: 0 2px 8px #27ae6011;
-    }
-    .footer-social {
-      margin: 1.2rem 0 0.5rem 0;
-      display: flex; gap: 1.2rem; justify-content: center; align-items: center;
-      position: relative;
-    }
-    .footer-social .tooltip {
-      visibility: hidden;
-      opacity: 0;
-      background: #222c36ee;
-      color: #fff;
-      border-radius: 6px;
-      padding: 3px 10px;
-      font-size: 0.95rem;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 38px;
-      white-space: nowrap;
-      z-index: 10;
-      transition: opacity 0.2s;
-      pointer-events: none;
-    }
-    .footer-social svg:hover + .tooltip {
-      visibility: visible;
-      opacity: 1;
-    }
-    .footer-social svg {
-      width: 28px; height: 28px; fill: var(--primary); background: #fff; border-radius: 50%; box-shadow: 0 1px 6px #1A8FFF11; padding: 4px; transition: fill 0.2s, background 0.2s, transform 0.2s;
-      animation: social-bounce 2.2s infinite alternate, social-gradient 4s linear infinite;
-    }
-    .footer-social svg:hover {
-      fill: var(--secondary); background: #F4F8FB; transform: scale(1.18) translateY(-4px);
-    }
-    @keyframes social-bounce {
-      0% { transform: translateY(0); }
-      60% { transform: translateY(-4px) scale(1.08); }
-      100% { transform: translateY(0); }
-    }
-    @keyframes social-gradient {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
+    .footer-inner { max-width: var(--maxw); margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 0.7rem; }
+    .footer-logo { width: 38px; height: 38px; border-radius: 8px; background: #fff; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 0.2rem; border: 1px solid var(--border); }
+    .footer-social { margin: 0.7rem 0 0.2rem 0; display: flex; gap: 1.2rem; justify-content: center; align-items: center; }
+    .footer-social svg { width: 24px; height: 24px; fill: var(--primary); background: #fff; border-radius: 50%; box-shadow: none; padding: 3px; transition: fill 0.2s, background 0.2s; }
+    .footer-social svg:hover { fill: #156fd1; background: #F4F8FB; }
     /* 响应式 */
-    @media (max-width: 900px) {
-      .card-list, .team-list { flex-direction: column; align-items: center; }
-      .nav-menu { gap: 1rem; }
-    }
-    @media (max-width: 600px) {
-      .hero-title { font-size: 1.7rem; }
-      .hero-subtitle { font-size: 1.1rem; }
-      .hero-btn { font-size: 1.2rem; padding: 1.1rem 1.6rem; }
-      .card { padding: 1.3rem 0.3rem; }
-      .card .card-icon { width: 2.2em; height: 2.2em; }
-      .team-avatar { width: 68px; height: 68px; }
-      .footer-logo { width: 32px; height: 32px; }
-      .nav-menu { display: none; }
-      nav { padding: 0.5rem 0.7rem; }
-    }
-    .logo-img {
-      object-fit: contain;
-      width: 100%;
-      height: 100%;
-      display: block;
-      margin: 0 auto;
-      background: transparent;
-      /* 临时裁剪白边：用clip-path聚焦中间logo区域，数值可微调 */
-      clip-path: inset(8% 10% 8% 10% round 12px);
-      /* 如logo为深色可加阴影增强立体感 */
-      box-shadow: 0 2px 12px rgba(44,62,80,0.08);
-    }
-    .contact-full {
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .contact-row {
-      width: 100%;
-      display: flex;
-      gap: 2rem;
-      justify-content: center;
-      align-items: stretch;
-      margin-bottom: 0;
-    }
-    .contact-card {
-      background: var(--primary);
-      color: #fff;
-      border-radius: 16px;
-      padding: 2.5rem 1.5rem;
-      text-align: center;
-      flex: 1 1 0;
-      min-width: 260px;
-      max-width: 520px;
-      box-shadow: 0 2px 12px rgba(44,62,80,0.10);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin-bottom: 2.5rem;
-    }
-    @media (max-width: 900px) {
-      .contact-row { flex-direction: column; gap: 1.5rem; }
-      .contact-card { max-width: 100%; }
-      .contact-full { padding-left: 1.2rem !important; padding-right: 1.2rem !important; }
-    }
-    /* 动画与动效 */
-    .fade-in { opacity: 0; transform: scale(0.92) translateY(60px); transition: opacity 0.8s cubic-bezier(.4,1.4,.6,1), transform 0.8s cubic-bezier(.4,1.4,.6,1); }
-    .fade-in.visible { opacity: 1; transform: scale(1) translateY(0); }
-    .card, .ai-step, .team-member, .contact-card { transition: box-shadow 0.25s, transform 0.25s, background 0.4s; }
-    .card:hover, .ai-step:hover, .team-member:hover, .contact-card:hover {
-      box-shadow: 0 12px 36px #1A8FFF33, 0 2px 12px #1A8FFF22;
-      transform: translateY(-8px) scale(1.04);
-      background: rgba(255,255,255,0.92);
-    }
-    .hero-btn, .contact-btn {
-      position: relative; overflow: hidden;
-    }
-    .hero-btn::after, .contact-btn::after {
-      content: ""; position: absolute; left: 50%; top: 50%; width: 0; height: 0; background: rgba(0,224,255,0.18); border-radius: 50%; transform: translate(-50%,-50%); transition: width 0.4s, height 0.4s;
-    }
-    .hero-btn:active::after, .contact-btn:active::after {
-      width: 180%; height: 180%;
-    }
-    .team-avatar { animation: pulse 2.5s infinite alternate; }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 #1A8FFF33; }
-      100% { box-shadow: 0 0 16px 8px #00E0FF22; }
-    }
-    .partner-logo { filter: grayscale(0.5); }
-    .partner-logo.visible, .partner-logo:hover { filter: grayscale(0) brightness(1.1); }
-    /* 移动端汉堡菜单 */
-    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; margin-left: 1.2rem; }
-    .nav-hamburger span { width: 28px; height: 3px; background: var(--primary); border-radius: 2px; transition: all 0.3s; }
-    @media (max-width: 900px) {
-      .nav-menu { display: none; position: absolute; right: 2.5rem; top: 60px; background: rgba(255,255,255,0.98); box-shadow: 0 8px 32px #1A8FFF11; border-radius: 12px; flex-direction: column; gap: 1.2rem; padding: 1.2rem 2rem; z-index: 200; }
-      .nav-menu.open { display: flex; }
-      .nav-hamburger { display: flex; }
-    }
-    /* 全局滚动条美化 */
-    ::-webkit-scrollbar { width: 9px; background: #E6F9FF; }
-    ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #1A8FFF 10%, #00E0FF 90%); border-radius: 12px; transition: background 0.3s; }
-    ::-webkit-scrollbar-thumb:hover { background: linear-gradient(135deg, #00E0FF 0%, #1A8FFF 100%); box-shadow: 0 0 8px #00E0FF55; }
-    /* 分区发光分割线 */
-    .section-divider {
-      width: 100%; height: 8px; background: linear-gradient(90deg, transparent 0%, #1A8FFF 18%, #00E0FF 82%, transparent 100%); box-shadow: 0 0 16px #1A8FFF44, 0 0 32px #00E0FF22; position: relative; overflow: hidden;
-    }
-    .divider-glow { animation-duration: 2.2s; }
-    /* 英文副标题国际范 */
-    .en-sub { font-size: 1.22rem; color: #00E0FF; font-weight: 900; letter-spacing: 0.28em; margin-left: 0.7em; text-shadow: 0 2px 8px #00E0FF33; }
-    /* 按钮流光动画 */
-    .hero-btn, .contact-btn {
-      position: relative; overflow: hidden;
-    }
-    .hero-btn::before, .contact-btn::before {
-      content: ""; position: absolute; left: -60%; top: 0; width: 60%; height: 100%; background: linear-gradient(120deg, transparent 60%, #00E0FF88 90%, transparent 100%); z-index: 1; transform: skewX(-24deg); transition: none;
-      animation: btn-glow 2.2s linear infinite;
-    }
-    @keyframes btn-glow {
-      0% { left: -60%; }
-      60% { left: 120%; }
-      100% { left: 120%; }
-    }
-    .hero-btn:active::after, .contact-btn:active::after {
-      width: 180%; height: 180%;
-    }
-    /* 移动端分区间距优化 */
     @media (max-width: 1100px) {
-      .hero, .section-3col, .ai-flow-section, .team-section, .partners-section, .contact-section { max-width: 98vw; }
+      .hero, section { max-width: 98vw; }
       .hero { flex-direction: column; gap: 1.5rem; padding: 100px 0 40px 0; }
       .hero-right, .hero-left { min-width: 0; width: 100%; }
-      .section-3col { flex-direction: column; gap: 1.5rem; }
-      .ai-flow { flex-direction: column; gap: 1.5rem; }
-      .contact-row { flex-direction: column; gap: 1.5rem; }
-      .section-divider { margin: 1.5rem 0 1.5rem 0; }
+      .card-list { flex-direction: column; gap: 1.2rem; }
+      .team-list { flex-direction: row; flex-wrap: wrap; gap: 1.2rem; }
+      .partners-list { flex-direction: row; flex-wrap: wrap; gap: 1.2rem; }
+      .contact-row { flex-direction: column; gap: 1.2rem; }
     }
     @media (max-width: 600px) {
       .hero-title { font-size: 1.5rem; }
       .hero-btn { font-size: 1rem; padding: 0.7rem 1.2rem; }
-      .hero-logo-img { width: 110px; height: 50px; }
-      .hero-svg { width: 180px; height: 110px; }
-      .section-3col .card, .ai-step, .team-member, .contact-card { padding: 1.1rem 0.5rem; }
-      .team-avatar { width: 54px; height: 54px; }
-      .footer-logo { width: 32px; height: 32px; }
-      .section-divider { margin: 1rem 0 1rem 0; }
-    }
-    /* Hero区动态粒子和流光 */
-    .hero-bg-anim {
-      position: absolute; left: 0; top: 0; width: 100vw; height: 100%; z-index: 0; pointer-events: none; overflow: hidden;
-    }
-    .hero { position: relative; z-index: 1; }
-    /* 分区分割线流动高光 */
-    .section-divider {
-      position: relative;
-      overflow: hidden;
-    }
-    .divider-glow {
-      position: absolute; left: -20%; top: 0; width: 40%; height: 100%; background: linear-gradient(90deg, transparent 0%, #00E0FF88 50%, transparent 100%); filter: blur(4px); animation: divider-glow-move 3.5s linear infinite;
-    }
-    @keyframes divider-glow-move {
-      0% { left: -20%; }
-      100% { left: 80%; }
-    }
-    /* 卡片悬浮高光流动 */
-    .card, .ai-step, .team-member, .contact-card {
-      position: relative;
-      overflow: hidden;
-    }
-    .card::before, .ai-step::before, .team-member::before, .contact-card::before {
-      content: ""; position: absolute; left: -60%; top: 0; width: 60%; height: 100%; background: linear-gradient(120deg, transparent 60%, #00E0FF99 90%, transparent 100%); z-index: 1; transform: skewX(-24deg); transition: none; pointer-events: none;
-      opacity: 0.7; transition: opacity 0.2s;
-    }
-    .card:hover::before, .ai-step:hover::before, .team-member:hover::before, .contact-card:hover::before {
-      animation: btn-glow 2.2s linear infinite; opacity: 1;
-    }
-    /* 按钮点击水波扩散 */
-    .hero-btn, .contact-btn {
-      overflow: hidden; position: relative;
-    }
-    .ripple {
-      position: absolute; border-radius: 50%; transform: scale(0); animation: ripple 0.6s linear; background: rgba(0,224,255,0.18); pointer-events: none; z-index: 2;
-    }
-    @keyframes ripple {
-      to { transform: scale(2.5); opacity: 0; }
-    }
-    /* 团队头像渐变流动边框 */
-    .team-avatar {
-      border: 3px solid; border-image: linear-gradient(135deg, #1A8FFF 60%, #00E0FF 100%) 1; box-shadow: 0 0 0 0 #1A8FFF33;
-      animation: pulse 2.5s infinite alternate, avatar-gradient 4s linear infinite;
-      background-clip: padding-box;
-    }
-    @keyframes avatar-gradient {
-      0% { border-image: linear-gradient(135deg, #1A8FFF 60%, #00E0FF 100%) 1; }
-      50% { border-image: linear-gradient(135deg, #00E0FF 60%, #1A8FFF 100%) 1; }
-      100% { border-image: linear-gradient(135deg, #1A8FFF 60%, #00E0FF 100%) 1; }
-    }
-    .team-avatar:hover {
-      box-shadow: 0 0 24px 8px #00E0FF44, 0 2px 8px #1A8FFF22;
-      border-width: 4px;
-    }
-    /* 合作伙伴logo滚动自动高亮 */
-    .partner-logo {
-      transition: filter 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s, background 0.25s;
-    }
-    .partner-logo.active {
-      filter: grayscale(0) brightness(1.15); color: var(--secondary); box-shadow: 0 0 24px #00E0FF44, 0 4px 18px #1A8FFF13; transform: scale(1.08); background: #F4F8FB;
-    }
-    /* 顶部导航滚动阴影 */
-    nav.scrolled {
-      box-shadow: 0 8px 32px #1A8FFF33, 0 2px 8px #1B263B22;
-      background: rgba(255,255,255,0.97);
-      border-bottom: 2.5px solid #00E0FF;
-    }
-    /* 回到顶部按钮 */
-    #backToTop {
-      box-shadow: 0 4px 18px #1A8FFF33, 0 0 0 0 #00E0FF44;
-      position: fixed; right: 2.2rem; bottom: 2.2rem; z-index: 300;
-      width: 52px; height: 52px; border-radius: 50%; background: var(--gradient); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0.88; border: none; outline: none; font-size: 1.7rem; transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-      animation: backtotop-bounce 2.2s infinite alternate;
-      display: none;
-    }
-    #backToTop::after {
-      content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(from 0deg, #1A8FFF 0%, #00E0FF 60%, #1A8FFF 100%); opacity: 0.18; z-index: 0; animation: backtotop-glow 2.2s linear infinite;
-    }
-    @keyframes backtotop-glow {
-      0% { filter: blur(2px) brightness(1.1); }
-      100% { filter: blur(6px) brightness(1.3); transform: rotate(360deg); }
-    }
-    #backToTop:active { transform: scale(0.92); }
-    /* 页面加载主色流光横扫 */
-    body::before {
-      content: ""; position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; z-index: 9999;
-      background: linear-gradient(120deg, #1A8FFF 0%, #00E0FF 100%);
-      opacity: 0.12; pointer-events: none;
-      animation: page-glow-sweep 1.2s cubic-bezier(.4,1.4,.6,1);
-    }
-    @keyframes page-glow-sweep {
-      0% { opacity: 0.22; transform: translateX(-100vw); }
-      60% { opacity: 0.18; transform: translateX(0); }
-      100% { opacity: 0; transform: translateX(100vw); }
-    }
-    /* 滚动条美化升级 */
-    ::-webkit-scrollbar { width: 9px; background: #E6F9FF; }
-    ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #1A8FFF 10%, #00E0FF 90%); border-radius: 12px; transition: background 0.3s; }
-    ::-webkit-scrollbar-thumb:hover { background: linear-gradient(135deg, #00E0FF 0%, #1A8FFF 100%); box-shadow: 0 0 8px #00E0FF55; }
-    /* 分区留白与分割线渐隐 */
-    section, .section-divider { margin-top: 3.5rem !important; margin-bottom: 3.5rem !important; }
-    .section-divider { height: 8px; border-radius: 4px; background: linear-gradient(90deg, transparent 0%, #1A8FFF 18%, #00E0FF 82%, transparent 100%); box-shadow: 0 0 16px #1A8FFF44, 0 0 32px #00E0FF22; position: relative; overflow: hidden; }
-    .divider-glow { animation-duration: 2.2s; }
-    /* 英文副标题更亮更粗更宽 */
-    .en-sub { font-size: 1.22rem; color: #00E0FF; font-weight: 900; letter-spacing: 0.28em; margin-left: 0.7em; text-shadow: 0 2px 8px #00E0FF33; }
-    /* 卡片/按钮高光流动更柔和 */
-    .card::before, .ai-step::before, .team-member::before, .contact-card::before {
-      background: linear-gradient(120deg, transparent 60%, #00E0FF99 90%, transparent 100%);
-      opacity: 0.7;
-    }
-    /* 卡片内边距更充足 */
-    .section-3col .card, .ai-step, .team-member, .contact-card { padding: 2.7rem 2rem 2.2rem 2rem; }
-    /* 团队头像悬浮流光加速+放大 */
-    .team-avatar { transition: box-shadow 0.25s, border-width 0.25s, transform 0.25s; }
-    .team-avatar:hover { animation-duration: 1.2s !important; transform: scale(1.08); }
-    /* 合作伙伴logo高亮发光+悬浮跳动 */
-    .partner-logo.active {
-      box-shadow: 0 0 32px 8px #00E0FF55, 0 4px 18px #1A8FFF13;
-      border: 2.5px solid #00E0FF;
-    }
-    .partner-logo:hover { animation: logo-bounce 0.5s cubic-bezier(.4,1.4,.6,1); }
-    @keyframes logo-bounce {
-      0% { transform: scale(1.08) translateY(0); }
-      40% { transform: scale(1.18) translateY(-6px); }
-      100% { transform: scale(1.08) translateY(0); }
-    }
-    /* 回到顶部按钮流光环绕+点击缩放 */
-    #backToTop {
-      box-shadow: 0 4px 18px #1A8FFF33, 0 0 0 0 #00E0FF44;
-      position: fixed; right: 2.2rem; bottom: 2.2rem; z-index: 300;
-      width: 52px; height: 52px; border-radius: 50%; background: var(--gradient); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0.88; border: none; outline: none; font-size: 1.7rem; transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-      animation: backtotop-bounce 2.2s infinite alternate;
-      display: none;
-    }
-    #backToTop::after {
-      content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(from 0deg, #1A8FFF 0%, #00E0FF 60%, #1A8FFF 100%); opacity: 0.18; z-index: 0; animation: backtotop-glow 2.2s linear infinite;
-    }
-    @keyframes backtotop-glow {
-      0% { filter: blur(2px) brightness(1.1); }
-      100% { filter: blur(6px) brightness(1.3); transform: rotate(360deg); }
-    }
-    #backToTop:active { transform: scale(0.92); }
-    /* 滚动进入弹性缩放+延迟队列 */
-    .fade-in { opacity: 0; transform: scale(0.92) translateY(60px); transition: opacity 0.8s cubic-bezier(.4,1.4,.6,1), transform 0.8s cubic-bezier(.4,1.4,.6,1); }
-    .fade-in.visible { opacity: 1; transform: scale(1) translateY(0); }
-    /* 移动端圆角更大、按钮更高、分区间距更宽 */
-    @media (max-width: 1100px) {
-      section, .section-divider { margin-top: 2.2rem !important; margin-bottom: 2.2rem !important; }
-      .section-3col .card, .ai-step, .team-member, .contact-card { border-radius: 32px; padding: 1.7rem 1rem 1.3rem 1rem; }
-      .hero-btn, .contact-btn { height: 3.2rem; font-size: 1.1rem; }
-    }
-    @media (max-width: 600px) {
-      section, .section-divider { margin-top: 1.2rem !important; margin-bottom: 1.2rem !important; }
-      .section-3col .card, .ai-step, .team-member, .contact-card { border-radius: 38px; padding: 1.1rem 0.5rem; }
-      .hero-btn, .contact-btn { height: 3.5rem; font-size: 1rem; }
-    }
-    /* 顶部导航滚动阴影更明显，背景过渡柔和 */
-    nav {
-      transition: box-shadow 0.3s, background 0.3s, border-bottom 0.3s;
-    }
-    nav.scrolled {
-      box-shadow: 0 8px 32px #1A8FFF33, 0 2px 8px #1B263B22;
-      background: rgba(255,255,255,0.97);
-      border-bottom: 2.5px solid #00E0FF;
+      .hero-logo-img { width: 90px; height: 40px; }
+      .section-title { font-size: 1.1rem; }
+      .card, .team-member, .contact-card { padding: 1.1rem 0.5rem; }
+      .team-avatar { width: 40px; height: 40px; }
+      .footer-logo { width: 28px; height: 28px; }
     }
   </style>
 </head>
 <body>
-  <!-- 顶部导航栏 -->
+  <!-- 顶部极简导航 -->
   <nav>
-    <div class="nav-logo">
-      <img src="logo.jpg" width="70" height="38" alt="香草人科技LOGO" class="logo-img"/>
-      <span class="nav-title">香草人科技</span>
-    </div>
-    <div class="nav-hamburger" id="navHamburger" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </div>
-    <div class="nav-menu" id="navMenu">
-      <a href="#hero">首页</a>
-      <a href="#about">关于我们</a>
-      <a href="#services">业务</a>
-      <a href="#vision">愿景</a>
-      <a href="#team">团队</a>
-      <a href="#partners">合作伙伴</a>
-      <a href="#join">加入我们</a>
-      <a href="#contact">联系我们</a>
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <img src="logo.jpg" alt="LOGO" />
+        <span class="nav-title">香草人科技</span>
+      </div>
+      <div class="nav-menu">
+        <a href="#hero">首页</a>
+        <a href="#about">关于我们</a>
+        <a href="#services">业务</a>
+        <a href="#team">团队</a>
+        <a href="#partners">合作伙伴</a>
+        <a href="#contact">联系我们</a>
+      </div>
     </div>
   </nav>
-
-  <!-- Hero Banner -->
-  <section class="hero fade-in" id="hero">
+  <!-- Hero区 -->
+  <section class="hero" id="hero">
     <div class="hero-left">
-      <div class="hero-en en-sub">AI for a Better World</div>
+      <div class="hero-en">AI for a Better World</div>
       <div class="hero-title">定义你自己，点亮世界</div>
       <div class="hero-desc">专注人工智能与数字化解决方案，温暖每一个心灵。让AI与爱同行，创造可持续发展的美好未来。</div>
-      <button class="hero-btn" onclick="window.location.href='#about'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="1.3em" height="1.3em"><path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>了解更多</button>
+      <button class="hero-btn" onclick="window.location.href='#about'">了解更多</button>
     </div>
     <div class="hero-right">
       <img src="logo.jpg" class="hero-logo-img" alt="LOGO" />
-      <!-- 科技感SVG插画 -->
-      <svg class="hero-svg" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="160" cy="110" rx="120" ry="60" fill="#1A8FFF11"/>
-        <rect x="60" y="80" width="200" height="60" rx="30" fill="#00E0FF22"/>
-        <circle cx="160" cy="110" r="40" fill="#1A8FFF" fill-opacity="0.18"/>
-        <path d="M120 110a40 40 0 0 1 80 0" stroke="#1A8FFF" stroke-width="3" fill="none"/>
-        <circle cx="160" cy="110" r="8" fill="#00E0FF"/>
-        <rect x="150" y="60" width="20" height="20" rx="10" fill="#1A8FFF" fill-opacity="0.5"/>
-        <rect x="150" y="140" width="20" height="20" rx="10" fill="#00E0FF" fill-opacity="0.5"/>
-      </svg>
     </div>
   </section>
-  <div class="section-divider"><div class="divider-glow"></div></div>
-  <!-- 三栏区块（业务/品牌/愿景） -->
-  <section class="section-3col fade-in" id="about">
-    <div class="card">
-      <div class="card-icon">🤖</div>
-      <h3>人工智能核心<br><span class="en-sub">AI Core</span></h3>
-      <p>以AI为核心，驱动企业数字化转型，赋能各行各业。<br><span style="font-size:0.98em;color:#1A8FFF;">Empowering industries with AI-driven digital transformation.</span></p>
-    </div>
-    <div class="card">
-      <div class="card-icon">💡</div>
-      <h3>品牌愿景<br><span class="en-sub">Brand Vision</span></h3>
-      <p>让世界充满善意和爱，推动人类可持续发展。<br><span style="font-size:0.98em;color:#1A8FFF;">A world of kindness and sustainable growth.</span></p>
-    </div>
-    <div class="card">
-      <div class="card-icon">🌐</div>
-      <h3>科技美学<br><span class="en-sub">Tech Aesthetics</span></h3>
-      <p>融合科技与美学，打造温暖、智能、可持续的未来社会。<br><span style="font-size:0.98em;color:#1A8FFF;">Blending technology and aesthetics for a better future.</span></p>
-    </div>
-  </section>
-  <div class="section-divider"><div class="divider-glow"></div></div>
-  <!-- AI业务流程/优势区块 -->
-  <section class="ai-flow-section fade-in" id="services">
-    <div class="ai-flow-title">AI赋能业务流程 <span class="en-sub">AI Empowered Business Flow</span></div>
-    <div class="ai-flow">
-      <div class="ai-step">
-        <div class="ai-step-icon">🔍</div>
-        <div class="ai-step-title">需求分析<br><span class="en-sub">Needs Analysis</span></div>
-        <div class="ai-step-desc">深入理解客户需求，定制AI解决方案。<br><span style="color:#1A8FFF;">In-depth needs analysis for tailored AI solutions.</span></div>
-        <div class="ai-step-arrow">→</div>
+  <!-- 业务/品牌/愿景区块 -->
+  <section id="about">
+    <div class="section-title">我们的核心</div>
+    <div class="section-en">Our Core</div>
+    <div class="card-list">
+      <div class="card">
+        <div class="card-title">人工智能核心</div>
+        <div class="card-desc">以AI为核心，驱动企业数字化转型，赋能各行各业。</div>
       </div>
-      <div class="ai-step">
-        <div class="ai-step-icon">🧠</div>
-        <div class="ai-step-title">AI建模<br><span class="en-sub">AI Modeling</span></div>
-        <div class="ai-step-desc">基于大模型与多模态技术，构建智能系统。<br><span style="color:#1A8FFF;">Building intelligent systems with large models.</span></div>
-        <div class="ai-step-arrow">→</div>
+      <div class="card">
+        <div class="card-title">品牌愿景</div>
+        <div class="card-desc">让世界充满善意和爱，推动人类可持续发展。</div>
       </div>
-      <div class="ai-step">
-        <div class="ai-step-icon">⚙️</div>
-        <div class="ai-step-title">系统集成<br><span class="en-sub">System Integration</span></div>
-        <div class="ai-step-desc">高效集成AI与企业现有系统，保障稳定运行。<br><span style="color:#1A8FFF;">Seamless integration for robust operation.</span></div>
-        <div class="ai-step-arrow">→</div>
-      </div>
-      <div class="ai-step">
-        <div class="ai-step-icon">📈</div>
-        <div class="ai-step-title">数据驱动<br><span class="en-sub">Data Driven</span></div>
-        <div class="ai-step-desc">数据分析与可视化，助力科学决策。<br><span style="color:#1A8FFF;">Data analytics for smart decisions.</span></div>
+      <div class="card">
+        <div class="card-title">科技美学</div>
+        <div class="card-desc">融合科技与美学，打造温暖、智能、可持续的未来社会。</div>
       </div>
     </div>
   </section>
-  <div class="section-divider"><div class="divider-glow"></div></div>
-  <!-- 团队区 -->
-  <section class="team-section fade-in" id="team">
-    <div class="team-title">核心团队 <span class="en-sub">Core Team</span></div>
+  <!-- AI业务流程区块 -->
+  <section id="services">
+    <div class="section-title">AI赋能业务流程</div>
+    <div class="section-en">AI Empowered Business Flow</div>
+    <div class="card-list">
+      <div class="card">
+        <div class="card-title">需求分析</div>
+        <div class="card-desc">深入理解客户需求，定制AI解决方案。</div>
+      </div>
+      <div class="card">
+        <div class="card-title">AI建模</div>
+        <div class="card-desc">基于大模型与多模态技术，构建智能系统。</div>
+      </div>
+      <div class="card">
+        <div class="card-title">系统集成</div>
+        <div class="card-desc">高效集成AI与企业现有系统，保障稳定运行。</div>
+      </div>
+      <div class="card">
+        <div class="card-title">数据驱动</div>
+        <div class="card-desc">数据分析与可视化，助力科学决策。</div>
+      </div>
+    </div>
+  </section>
+  <!-- 团队区块 -->
+  <section id="team">
+    <div class="section-title">核心团队</div>
+    <div class="section-en">Core Team</div>
     <div class="team-list">
       <div class="team-member">
         <div class="team-avatar">A</div>
         <div class="team-name">张伟</div>
-        <div class="team-role">创始人 & CEO<br><span class="en-sub">Founder & CEO</span></div>
+        <div class="team-role">创始人 & CEO</div>
         <div class="team-desc">人工智能专家，致力于用科技温暖世界。</div>
       </div>
       <div class="team-member">
         <div class="team-avatar">B</div>
         <div class="team-name">李娜</div>
-        <div class="team-role">CTO<br><span class="en-sub">Chief Technology Officer</span></div>
+        <div class="team-role">CTO</div>
         <div class="team-desc">专注AI算法与大模型研发，推动创新落地。</div>
       </div>
       <div class="team-member">
         <div class="team-avatar">C</div>
         <div class="team-name">王强</div>
-        <div class="team-role">产品总监<br><span class="en-sub">Product Director</span></div>
+        <div class="team-role">产品总监</div>
         <div class="team-desc">深耕智能硬件与儿童陪伴机器人产品设计。</div>
       </div>
       <div class="team-member">
         <div class="team-avatar">D</div>
         <div class="team-name">赵敏</div>
-        <div class="team-role">市场总监<br><span class="en-sub">Marketing Director</span></div>
+        <div class="team-role">市场总监</div>
         <div class="team-desc">品牌战略与市场推广专家。</div>
       </div>
     </div>
   </section>
-  <div class="section-divider"><div class="divider-glow"></div></div>
-  <!-- 合作伙伴区 -->
-  <section class="partners-section fade-in" id="partners">
-    <div class="team-title">合作伙伴 <span class="en-sub">Partners</span></div>
-    <div class="partners">
-      <div class="partner-logos">
-        <div class="partner-logo">腾讯</div>
-        <div class="partner-logo">阿里巴巴</div>
-        <div class="partner-logo">百度</div>
-        <div class="partner-logo">华为</div>
-        <div class="partner-logo">字节跳动</div>
-        <div class="partner-logo">小米</div>
-        <div class="partner-logo">京东</div>
-        <div class="partner-logo">网易</div>
-      </div>
+  <!-- 合作伙伴区块 -->
+  <section id="partners">
+    <div class="section-title">合作伙伴</div>
+    <div class="section-en">Partners</div>
+    <div class="partners-list">
+      <div class="partner-logo">腾讯</div>
+      <div class="partner-logo">阿里巴巴</div>
+      <div class="partner-logo">百度</div>
+      <div class="partner-logo">华为</div>
+      <div class="partner-logo">字节跳动</div>
+      <div class="partner-logo">小米</div>
+      <div class="partner-logo">京东</div>
+      <div class="partner-logo">网易</div>
     </div>
   </section>
-  <div class="section-divider"><div class="divider-glow"></div></div>
   <!-- 加入我们/联系我们区块 -->
-  <section class="contact-section fade-in" id="contact">
+  <section id="contact">
+    <div class="section-title">加入我们 / 联系我们</div>
+    <div class="section-en">Join Us / Contact</div>
     <div class="contact-row">
       <div class="contact-card">
-        <h3>加入我们<br><span class="en-sub" style="color:#fff8;">Join Us</span></h3>
+        <h3>加入我们</h3>
         <p>站在新时代的开端，AI技术正在重塑我们的未来。如果你心中怀有光明与爱，渴望探索未知并愿意迎接变革，欢迎加入我们共同创造一个更加美好的明天。</p>
         <a href="mailto:contact@xiangcaoren.com" class="contact-btn">投递简历</a>
       </div>
       <div class="contact-card">
-        <h3>联系我们<br><span class="en-sub" style="color:#fff8;">Contact Us</span></h3>
+        <h3>联系我们</h3>
         <p>邮箱：<a href="mailto:contact@xiangcaoren.com">contact@xiangcaoren.com</a></p>
         <p>地址：北京市海淀区中关村创业大街</p>
         <a href="mailto:contact@xiangcaoren.com" class="contact-btn">发送邮件</a>
       </div>
     </div>
   </section>
-
+  <!-- 极简页脚 -->
   <footer>
-    <div class="footer-divider"></div>
-    <div class="footer-logo"><img src="logo.jpg" width="36" height="36" alt="LOGO" style="object-fit:contain;border-radius:8px;"/></div>
-    <div class="footer-social">
-      <!-- 微信icon -->
-      <span style="position:relative;display:inline-block;">
-        <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#e6f9ec"/><ellipse cx="18" cy="28" rx="2.5" ry="2.2" fill="#27ae60"/><ellipse cx="30" cy="28" rx="2.5" ry="2.2" fill="#27ae60"/><ellipse cx="24" cy="20" rx="8" ry="7" fill="#27ae60"/><ellipse cx="24" cy="20" rx="8" ry="7" fill="#27ae60" fill-opacity=".2"/><circle cx="20" cy="18" r="1.2" fill="#fff"/><circle cx="28" cy="18" r="1.2" fill="#fff"/></svg>
-        <span class="tooltip">微信</span>
-      </span>
-      <!-- LinkedIn icon -->
-      <span style="position:relative;display:inline-block;">
-        <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#e6f9ec"/><rect x="8" y="13" width="3" height="11" rx="1.5" fill="#27ae60"/><circle cx="9.5" cy="10" r="1.5" fill="#27ae60"/><rect x="14" y="13" width="3" height="11" rx="1.5" fill="#27ae60"/><rect x="19" y="17" width="3" height="7" rx="1.5" fill="#27ae60"/></svg>
-        <span class="tooltip">LinkedIn</span>
-      </span>
+    <div class="footer-inner">
+      <div class="footer-logo"><img src="logo.jpg" width="28" height="28" alt="LOGO" style="object-fit:contain;border-radius:8px;"/></div>
+      <div>北京香草人科技有限公司 &copy; 2025</div>
+      <div class="footer-social">
+        <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#F4F8FB"/><ellipse cx="18" cy="28" rx="2.5" ry="2.2" fill="#1A8FFF"/><ellipse cx="30" cy="28" rx="2.5" ry="2.2" fill="#1A8FFF"/><ellipse cx="24" cy="20" rx="8" ry="7" fill="#1A8FFF"/><ellipse cx="24" cy="20" rx="8" ry="7" fill="#1A8FFF" fill-opacity=".2"/><circle cx="20" cy="18" r="1.2" fill="#fff"/><circle cx="28" cy="18" r="1.2" fill="#fff"/></svg>
+        <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#F4F8FB"/><rect x="8" y="13" width="3" height="11" rx="1.5" fill="#1A8FFF"/><circle cx="9.5" cy="10" r="1.5" fill="#1A8FFF"/><rect x="14" y="13" width="3" height="11" rx="1.5" fill="#1A8FFF"/><rect x="19" y="17" width="3" height="7" rx="1.5" fill="#1A8FFF"/></svg>
+      </div>
+      <div>备案号：京ICP备xxxxxxx号</div>
     </div>
-    <p>&copy; 2025 北京香草人科技有限公司 | 保留所有权利</p>
-    <p>备案号：京ICP备xxxxxxx号</p>
   </footer>
-
-  <script>
-    function toggleMenu() {
-      document.getElementById('navMenu').classList.toggle('open');
-    }
-    // 动画滚动进入（弹性缩放+延迟队列）
-    function onScrollAnim() {
-      document.querySelectorAll('.fade-in').forEach((el, i) => {
-        const rect = el.getBoundingClientRect();
-        if(rect.top < window.innerHeight - 60) {
-          setTimeout(() => el.classList.add('visible'), i*100);
-        }
-      });
-    }
-    window.addEventListener('scroll', onScrollAnim);
-    window.addEventListener('DOMContentLoaded', onScrollAnim);
-    // 按钮波纹动效
-    document.querySelectorAll('.hero-btn, .contact-card a').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        const ripple = document.createElement('span');
-        ripple.className = 'ripple';
-        ripple.style.left = (e.offsetX - 10) + 'px';
-        ripple.style.top = (e.offsetY - 10) + 'px';
-        ripple.style.width = ripple.style.height = '20px';
-        this.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 600);
-      });
-    });
-    // 合作伙伴logo区滚动支持手指滑动
-    const partnerLogos = document.querySelector('.partner-logos');
-    if (partnerLogos) {
-      let isDown = false, startX, scrollLeft;
-      partnerLogos.addEventListener('touchstart', function(e) {
-        isDown = true;
-        startX = e.touches[0].pageX - partnerLogos.offsetLeft;
-        scrollLeft = partnerLogos.scrollLeft;
-      });
-      partnerLogos.addEventListener('touchend', function() { isDown = false; });
-      partnerLogos.addEventListener('touchmove', function(e) {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.touches[0].pageX - partnerLogos.offsetLeft;
-        const walk = (x - startX) * 1.2;
-        partnerLogos.scrollLeft = scrollLeft - walk;
-      });
-    }
-    // 顶部导航滚动阴影
-    window.addEventListener('scroll', function() {
-      const nav = document.querySelector('nav');
-      if(window.scrollY > 24) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
-      // 回到顶部按钮显示
-      const btn = document.getElementById('backToTop');
-      if(window.scrollY > 200) btn.classList.add('show');
-      else btn.classList.remove('show');
-    });
-    // 按钮水波扩散
-    document.querySelectorAll('.hero-btn, .contact-btn').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        const ripple = document.createElement('span');
-        ripple.className = 'ripple';
-        const rect = btn.getBoundingClientRect();
-        ripple.style.left = (e.clientX - rect.left) + 'px';
-        ripple.style.top = (e.clientY - rect.top) + 'px';
-        ripple.style.width = ripple.style.height = Math.max(rect.width, rect.height) + 'px';
-        btn.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 600);
-      });
-    });
-    // 合作伙伴logo滚动自动高亮
-    function highlightPartnerLogo() {
-      const logos = document.querySelectorAll('.partner-logo');
-      let idx = 0;
-      setInterval(() => {
-        logos.forEach((el,i)=>el.classList.toggle('active',i===idx));
-        idx = (idx+1)%logos.length;
-      }, 1800);
-    }
-    window.addEventListener('DOMContentLoaded', highlightPartnerLogo);
-  </script>
 </body>
 </html>
