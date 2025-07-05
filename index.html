@@ -75,31 +75,42 @@
       filter: drop-shadow(0 4px 16px rgba(39,174,96,0.18));
     }
     .hero-title {
-      font-size: 3.2rem; font-weight: 800; letter-spacing: 2.5px;
+      font-size: 3.6rem;
+      font-weight: 900;
+      letter-spacing: 2.5px;
       margin-bottom: 1.2rem;
-      text-shadow: 0 6px 32px rgba(39,174,96,0.18);
+      text-shadow: 0 8px 36px rgba(39,174,96,0.18), 0 2px 8px #1e90ff33;
       z-index: 2;
     }
     .hero-subtitle {
-      font-size: 1.4rem; margin-bottom: 2.2rem; font-weight: 400;
+      font-size: 1.5rem;
+      margin-bottom: 2.2rem;
+      font-weight: 400;
       z-index: 2;
+      text-shadow: 0 2px 8px #1e90ff22;
     }
     .hero-btn {
-      background: linear-gradient(90deg, #fff 0%, #e6f9ec 100%);
-      color: var(--primary); border: none; border-radius: 32px;
-      padding: 0.9rem 2.5rem; font-size: 1.15rem; font-weight: 800;
-      box-shadow: 0 4px 18px rgba(44,62,80,0.13);
-      cursor: pointer; transition: background 0.3s, color 0.3s, box-shadow 0.3s;
-      letter-spacing: 1px;
-      z-index: 2;
-      background-size: 200% 200%;
-      background-image: linear-gradient(90deg, #fff 0%, #e6f9ec 50%, #1e90ff 100%);
+      position: relative;
+      overflow: hidden;
+      animation: hero-btn-float 3s ease-in-out infinite alternate;
     }
-    .hero-btn:hover {
-      background-position: 100% 0;
-      background: linear-gradient(90deg, #1e90ff 0%, #27ae60 100%);
-      color: #fff;
-      box-shadow: 0 8px 32px rgba(39,174,96,0.18);
+    @keyframes hero-btn-float {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-6px); }
+    }
+    .hero-btn::after {
+      content: '';
+      position: absolute; left: -60%; top: 0; width: 60%; height: 100%;
+      background: linear-gradient(120deg, #fff6 0%, #1e90ff33 100%);
+      filter: blur(8px);
+      opacity: 0.5;
+      transform: skewX(-20deg);
+      transition: left 0.5s;
+      z-index: 1;
+    }
+    .hero-btn:hover::after {
+      left: 100%;
+      transition: left 0.7s;
     }
     .hero-btn .btn-icon {
       display: inline-block;
@@ -115,6 +126,13 @@
     .hero-bg-svg {
       position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 1;
       pointer-events: none;
+    }
+    .hero-bg-svg circle.pulse {
+      animation: hero-pulse 2.5s infinite alternate;
+    }
+    @keyframes hero-pulse {
+      0% { r: 8; opacity: 0.18; }
+      100% { r: 14; opacity: 0.32; }
     }
     /* 卡片分区 */
     .section {
@@ -133,10 +151,20 @@
       transition: transform 0.28s cubic-bezier(.4,1.4,.6,1), box-shadow 0.28s;
       position: relative;
       overflow: hidden;
+      border: 1.5px solid;
+      border-image: linear-gradient(120deg, #27ae60 0%, #1e90ff 100%) 1;
+      box-shadow: var(--card-shadow), 0 0 0 0 #1e90ff00;
+    }
+    .card::before {
+      content: '';
+      position: absolute; left: 0; top: 0; width: 100%; height: 28px;
+      background: linear-gradient(180deg, #fff8 60%, #fff0 100%);
+      border-radius: var(--card-radius) var(--card-radius) 0 0;
+      pointer-events: none;
+      z-index: 1;
     }
     .card:hover {
-      transform: translateY(-10px) scale(1.045);
-      box-shadow: 0 16px 48px rgba(39,174,96,0.18), 0 2px 12px rgba(44,62,80,0.10);
+      box-shadow: 0 0 0 4px #1e90ff22, 0 16px 48px rgba(39,174,96,0.18), 0 2px 12px rgba(44,62,80,0.10);
     }
     .card h3 {
       color: var(--primary); margin-bottom: 0.7rem; font-size: 1.28rem; font-weight: 700;
@@ -148,6 +176,14 @@
       margin-right: 0.3rem; vertical-align: middle;
       color: var(--blue);
       stroke-width: 1.5;
+    }
+    .card .card-icon svg {
+      filter: drop-shadow(0 2px 8px #1e90ff33);
+      background: linear-gradient(120deg, #27ae60 0%, #1e90ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
     }
     .card p { color: #333; font-size: 1.04rem; }
     .card-divider {
@@ -179,23 +215,24 @@
       transition: box-shadow 0.3s, transform 0.3s, border 0.3s;
       position: relative;
       overflow: hidden;
+      animation: avatar-gradient 4s linear infinite;
     }
     .team-avatar span {
       font-size: 2.3rem; color: var(--primary); font-weight: 700; letter-spacing: 1px; z-index: 2; position: relative;
     }
     .team-member:hover .team-avatar {
-      box-shadow: 0 0 0 6px #e6f9ec, 0 4px 24px #27ae6011;
+      box-shadow: 0 0 0 10px #1e90ff22, 0 0 24px #27ae6011;
       border: 3px solid #1e90ff;
-      transform: scale(1.08) rotate(-3deg);
+      transform: scale(1.12) rotate(-3deg);
     }
     .team-name { font-weight: 700; margin-bottom: 0.2rem; }
     .team-role { color: var(--secondary); font-size: 0.98rem; margin-bottom: 0.5rem; }
     .team-desc { font-size: 0.95rem; color: #555; }
     /* 合作伙伴区 */
     .partners {
-      background: var(--partner-bg);
+      background: linear-gradient(120deg, #e6f9ec 60%, #d0eaff 100%);
+      box-shadow: 0 8px 32px #1e90ff11, var(--card-shadow);
       border-radius: var(--card-radius);
-      box-shadow: var(--card-shadow);
       padding: 2.2rem 1.2rem; margin: 2rem 0;
       display: flex; flex-direction: column; align-items: center;
       position: relative;
@@ -212,12 +249,13 @@
       font-size: 1.2rem; color: #bbb; font-weight: 700;
       box-shadow: 0 1px 8px rgba(44,62,80,0.06);
       filter: grayscale(1) brightness(1.1);
-      transition: filter 0.25s, color 0.25s;
+      transition: filter 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s;
     }
     .partner-logo:hover {
-      filter: grayscale(0) brightness(1);
-      color: var(--primary);
-      box-shadow: 0 4px 18px rgba(39,174,96,0.13);
+      filter: grayscale(0) brightness(1.1);
+      color: var(--blue);
+      box-shadow: 0 0 24px #1e90ff44, 0 4px 18px rgba(39,174,96,0.13);
+      transform: scale(1.08);
     }
     @keyframes scroll-x {
       0% { transform: translateX(0); }
@@ -261,12 +299,13 @@
       .contact-row { flex-direction: column; gap: 1.5rem; }
       .contact-card { width: 100%; }
       .contact-full { padding-left: 1.2rem !important; padding-right: 1.2rem !important; }
-      .hero-title { font-size: 2.1rem; }
-      .hero-subtitle { font-size: 1.05rem; }
+      .hero-title { font-size: 2.2rem; }
+      .hero-subtitle { font-size: 1.1rem; }
     }
     /* 页脚 */
     footer {
-      background: var(--dark); color: #fff; text-align: center;
+      background: linear-gradient(120deg, #e6f9ec 60%, #d0eaff 100%);
+      color: #fff; text-align: center;
       padding: 2rem 1rem; margin-top: 3rem; font-size: 1rem;
     }
     /* 响应式 */
@@ -275,8 +314,12 @@
       .nav-menu { gap: 1rem; }
     }
     @media (max-width: 600px) {
-      .hero-title { font-size: 2rem; }
-      .hero-subtitle { font-size: 1rem; }
+      .hero-title { font-size: 1.3rem; }
+      .hero-subtitle { font-size: 0.95rem; }
+      .hero-btn { font-size: 1rem; padding: 0.7rem 1.2rem; }
+      .card { padding: 1.2rem 0.7rem; }
+      .team-avatar { width: 54px; height: 54px; }
+      .footer-logo { width: 32px; height: 32px; }
       .nav-menu { display: none; }
       nav { padding: 0.5rem 0.7rem; }
     }
@@ -327,7 +370,7 @@
       .contact-full { padding-left: 1.2rem !important; padding-right: 1.2rem !important; }
     }
     /* 滚动进入动画 */
-    .fade-in-up { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(.4,1.4,.6,1); }
+    .fade-in-up { opacity: 0; transform: translateY(40px) scale(0.96); transition: all 0.8s cubic-bezier(.4,1.4,.6,1); }
     .fade-in-up.visible { opacity: 1; transform: none; }
     /* 分区渐变分割线 */
     .section-divider {
@@ -335,12 +378,6 @@
       background: var(--divider);
       margin: 0 auto 2.2rem auto;
       opacity: 0.22;
-    }
-    /* 卡片玻璃拟态/渐变背景 */
-    .card {
-      background: linear-gradient(135deg, #fff 80%, #e6f9ec 100%);
-      backdrop-filter: blur(2.5px);
-      border: 1.5px solid #e6f9ec;
     }
     /* 按钮波纹动效 */
     .hero-btn, .contact-card a {
@@ -364,36 +401,12 @@
     @keyframes ripple {
       to { transform: scale(2.5); opacity: 0; }
     }
-    /* 团队头像渐变边框和动画 */
-    .team-avatar {
-      border: 3px solid transparent;
-      background-clip: padding-box, border-box;
-      background-origin: padding-box, border-box;
-      background-image: linear-gradient(135deg, #e6f9ec 60%, #fff 100%), linear-gradient(135deg, #27ae60 40%, #1e90ff 100%);
-      transition: box-shadow 0.3s, transform 0.3s, border 0.3s;
+    /* 团队头像圆环渐变动画，悬停光圈 */
+    @keyframes avatar-gradient {
+      0% { border-color: #27ae60; }
+      50% { border-color: #1e90ff; }
+      100% { border-color: #27ae60; }
     }
-    .team-member:hover .team-avatar {
-      box-shadow: 0 0 0 6px #e6f9ec, 0 4px 24px #27ae6011;
-      border: 3px solid #1e90ff;
-      transform: scale(1.08) rotate(-3deg);
-    }
-    /* 合作伙伴logo区自动滚动和光晕 */
-    .partner-logos {
-      animation: scroll-x 18s linear infinite;
-      will-change: transform;
-    }
-    .partner-logo {
-      position: relative;
-      transition: filter 0.25s, color 0.25s, box-shadow 0.25s;
-    }
-    .partner-logo:hover::after {
-      content: '';
-      position: absolute; left: -8px; top: -8px; right: -8px; bottom: -8px;
-      border-radius: 16px;
-      box-shadow: 0 0 16px 4px #27ae6044;
-      pointer-events: none;
-    }
-    /* 页脚渐变分割线和品牌icon */
     .footer-divider {
       width: 100%; height: 4px; background: var(--divider); opacity: 0.18; margin-bottom: 1.2rem;
       border-radius: 2px;
@@ -404,12 +417,28 @@
     .footer-social {
       margin: 1.2rem 0 0.5rem 0;
       display: flex; gap: 1.2rem; justify-content: center; align-items: center;
+      position: relative;
     }
-    .footer-social svg {
-      width: 28px; height: 28px; fill: var(--primary); background: #fff; border-radius: 50%; box-shadow: 0 1px 6px #27ae6011; padding: 4px; transition: fill 0.2s, background 0.2s;
+    .footer-social .tooltip {
+      visibility: hidden;
+      opacity: 0;
+      background: #222c36ee;
+      color: #fff;
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 0.95rem;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 38px;
+      white-space: nowrap;
+      z-index: 10;
+      transition: opacity 0.2s;
+      pointer-events: none;
     }
-    .footer-social svg:hover {
-      fill: var(--blue); background: #e6f9ec;
+    .footer-social svg:hover + .tooltip {
+      visibility: visible;
+      opacity: 1;
     }
   </style>
 </head>
@@ -617,9 +646,15 @@
     <div class="footer-logo"><img src="logo.jpg" width="36" height="36" alt="LOGO" style="object-fit:contain;border-radius:8px;"/></div>
     <div class="footer-social">
       <!-- 微信icon -->
-      <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#e6f9ec"/><ellipse cx="18" cy="28" rx="2.5" ry="2.2" fill="#27ae60"/><ellipse cx="30" cy="28" rx="2.5" ry="2.2" fill="#27ae60"/><ellipse cx="24" cy="20" rx="8" ry="7" fill="#27ae60"/><ellipse cx="24" cy="20" rx="8" ry="7" fill="#27ae60" fill-opacity=".2"/><circle cx="20" cy="18" r="1.2" fill="#fff"/><circle cx="28" cy="18" r="1.2" fill="#fff"/></svg>
+      <span style="position:relative;display:inline-block;">
+        <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#e6f9ec"/><ellipse cx="18" cy="28" rx="2.5" ry="2.2" fill="#27ae60"/><ellipse cx="30" cy="28" rx="2.5" ry="2.2" fill="#27ae60"/><ellipse cx="24" cy="20" rx="8" ry="7" fill="#27ae60"/><ellipse cx="24" cy="20" rx="8" ry="7" fill="#27ae60" fill-opacity=".2"/><circle cx="20" cy="18" r="1.2" fill="#fff"/><circle cx="28" cy="18" r="1.2" fill="#fff"/></svg>
+        <span class="tooltip">微信</span>
+      </span>
       <!-- LinkedIn icon -->
-      <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#e6f9ec"/><rect x="8" y="13" width="3" height="11" rx="1.5" fill="#27ae60"/><circle cx="9.5" cy="10" r="1.5" fill="#27ae60"/><rect x="14" y="13" width="3" height="11" rx="1.5" fill="#27ae60"/><rect x="19" y="17" width="3" height="7" rx="1.5" fill="#27ae60"/></svg>
+      <span style="position:relative;display:inline-block;">
+        <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#e6f9ec"/><rect x="8" y="13" width="3" height="11" rx="1.5" fill="#27ae60"/><circle cx="9.5" cy="10" r="1.5" fill="#27ae60"/><rect x="14" y="13" width="3" height="11" rx="1.5" fill="#27ae60"/><rect x="19" y="17" width="3" height="7" rx="1.5" fill="#27ae60"/></svg>
+        <span class="tooltip">LinkedIn</span>
+      </span>
     </div>
     <p>&copy; 2025 北京香草人科技有限公司 | 保留所有权利</p>
     <p>备案号：京ICP备xxxxxxx号</p>
