@@ -20,6 +20,7 @@
       --card-shadow: 0 8px 32px rgba(26,143,255,0.13), 0 1.5px 8px rgba(27,38,59,0.06);
       --divider: linear-gradient(90deg, #1A8FFF 0%, #00E0FF 100%);
       --partner-bg: linear-gradient(90deg, #F4F8FB 0%, #E6F9FF 100%);
+      --anim-duration: 0.7s;
     }
     html, body {
       margin: 0; padding: 0; box-sizing: border-box;
@@ -533,71 +534,38 @@
       .contact-card { max-width: 100%; }
       .contact-full { padding-left: 1.2rem !important; padding-right: 1.2rem !important; }
     }
-    /* 滚动进入动画 */
-    .fade-in-up { opacity: 0; transform: translateY(40px) scale(0.96); transition: all 0.8s cubic-bezier(.4,1.4,.6,1); }
-    .fade-in-up.visible { opacity: 1; transform: none; }
-    /* 按钮波纹动效 */
-    .hero-btn, .contact-card a {
-      position: relative;
-      overflow: hidden;
+    /* 动画与动效 */
+    .fade-in { opacity: 0; transform: translateY(40px); transition: opacity 0.7s, transform 0.7s; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .card, .ai-step, .team-member, .contact-card { transition: box-shadow 0.25s, transform 0.25s, background 0.4s; }
+    .card:hover, .ai-step:hover, .team-member:hover, .contact-card:hover {
+      box-shadow: 0 12px 36px #1A8FFF33, 0 2px 12px #1A8FFF22;
+      transform: translateY(-8px) scale(1.04);
+      background: rgba(255,255,255,0.92);
     }
-    .hero-btn .btn-icon {
-      margin-right: 0.6em;
-      font-size: 1.2em;
-      vertical-align: middle;
+    .hero-btn, .contact-btn {
+      position: relative; overflow: hidden;
     }
-    .ripple {
-      position: absolute;
-      border-radius: 50%;
-      transform: scale(0);
-      animation: ripple 0.6s linear;
-      background: rgba(39,174,96,0.18);
-      pointer-events: none;
-      z-index: 10;
+    .hero-btn::after, .contact-btn::after {
+      content: ""; position: absolute; left: 50%; top: 50%; width: 0; height: 0; background: rgba(0,224,255,0.18); border-radius: 50%; transform: translate(-50%,-50%); transition: width 0.4s, height 0.4s;
     }
-    @keyframes ripple {
-      to { transform: scale(2.5); opacity: 0; }
+    .hero-btn:active::after, .contact-btn:active::after {
+      width: 180%; height: 180%;
     }
-    /* 团队头像圆环渐变动画，悬停光圈 */
-    @keyframes avatar-gradient {
-      0% { border-color: #1A8FFF; }
-      25% { border-color: #00E0FF; }
-      50% { border-color: #1A8FFF; }
-      75% { border-color: #00E0FF; }
-      100% { border-color: #1A8FFF; }
+    .team-avatar { animation: pulse 2.5s infinite alternate; }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 #1A8FFF33; }
+      100% { box-shadow: 0 0 16px 8px #00E0FF22; }
     }
-    .footer-divider {
-      width: 100%; height: 4px; background: var(--divider); opacity: 0.18; margin-bottom: 1.2rem;
-      border-radius: 2px;
-    }
-    .footer-logo {
-      width: 48px; height: 48px; border-radius: 12px; background: #fff; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 0.5rem; box-shadow: 0 2px 8px #27ae6011;
-    }
-    .footer-social {
-      margin: 1.2rem 0 0.5rem 0;
-      display: flex; gap: 1.2rem; justify-content: center; align-items: center;
-      position: relative;
-    }
-    .footer-social .tooltip {
-      visibility: hidden;
-      opacity: 0;
-      background: #222c36ee;
-      color: #fff;
-      border-radius: 6px;
-      padding: 3px 10px;
-      font-size: 0.95rem;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 38px;
-      white-space: nowrap;
-      z-index: 10;
-      transition: opacity 0.2s;
-      pointer-events: none;
-    }
-    .footer-social svg:hover + .tooltip {
-      visibility: visible;
-      opacity: 1;
+    .partner-logo { filter: grayscale(0.5); }
+    .partner-logo.visible, .partner-logo:hover { filter: grayscale(0) brightness(1.1); }
+    /* 移动端汉堡菜单 */
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; margin-left: 1.2rem; }
+    .nav-hamburger span { width: 28px; height: 3px; background: var(--primary); border-radius: 2px; transition: all 0.3s; }
+    @media (max-width: 900px) {
+      .nav-menu { display: none; position: absolute; right: 2.5rem; top: 60px; background: rgba(255,255,255,0.98); box-shadow: 0 8px 32px #1A8FFF11; border-radius: 12px; flex-direction: column; gap: 1.2rem; padding: 1.2rem 2rem; z-index: 200; }
+      .nav-menu.open { display: flex; }
+      .nav-hamburger { display: flex; }
     }
     /* 全局滚动条美化 */
     ::-webkit-scrollbar { width: 8px; background: #e6f9ec; }
@@ -621,7 +589,10 @@
       <img src="logo.jpg" width="70" height="38" alt="香草人科技LOGO" class="logo-img"/>
       <span class="nav-title">香草人科技</span>
     </div>
-    <div class="nav-menu">
+    <div class="nav-hamburger" id="navHamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="nav-menu" id="navMenu">
       <a href="#hero">首页</a>
       <a href="#about">关于我们</a>
       <a href="#services">业务</a>
@@ -634,7 +605,7 @@
   </nav>
 
   <!-- Hero Banner -->
-  <section class="hero" id="hero">
+  <section class="hero fade-in" id="hero">
     <!-- 动态粒子+流光SVG装饰 -->
     <svg class="hero-bg-svg" viewBox="0 0 1440 540" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -838,17 +809,18 @@
   </footer>
 
   <script>
-    // 滚动进入动画
-    function onScrollFadeIn() {
-      document.querySelectorAll('.fade-in-up').forEach(el => {
+    function toggleMenu() {
+      document.getElementById('navMenu').classList.toggle('open');
+    }
+    // 动画滚动进入
+    function onScrollAnim() {
+      document.querySelectorAll('.fade-in').forEach(el => {
         const rect = el.getBoundingClientRect();
-        if(rect.top < window.innerHeight - 60) {
-          el.classList.add('visible');
-        }
+        if(rect.top < window.innerHeight - 60) el.classList.add('visible');
       });
     }
-    window.addEventListener('scroll', onScrollFadeIn);
-    window.addEventListener('DOMContentLoaded', onScrollFadeIn);
+    window.addEventListener('scroll', onScrollAnim);
+    window.addEventListener('DOMContentLoaded', onScrollAnim);
     // 按钮波纹动效
     document.querySelectorAll('.hero-btn, .contact-card a').forEach(btn => {
       btn.addEventListener('click', function(e) {
