@@ -85,30 +85,63 @@
         flex-direction: column;
       }
       .nav-menu {
-        width: 100% !important;
-        left: 0; right: 0;
+        display: none;
+        position: fixed;
+        left: 0; top: 0; width: 100vw; height: 100vh;
+        background: #fff;
+        z-index: 9999;
+        box-shadow: none;
+        padding: 0;
+        text-align: center;
       }
-      .card, .team-member, .partner-logo, .contact-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
+      .nav-menu.open {
+        display: block;
+      }
+      .nav-menu .nav-logo {
+        display: block !important;
+        margin: 2.5rem auto 2.2rem auto;
+        text-align: center;
+      }
+      .nav-menu .nav-title {
+        display: block;
+        font-size: 20px;
+        color: var(--primary);
+        margin-top: 0.5rem;
+      }
+      .nav-menu a {
+        display: block;
+        width: 100%;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text);
+        padding: 1.1rem 0;
+        margin: 0 auto;
+        border-radius: 0;
+        background: none;
+        border: none;
+        text-align: center;
+        text-decoration: none;
+        box-sizing: border-box;
+      }
+      .nav-menu a:active {
+        background: #F0F2F5;
       }
       .nav-hamburger {
         display: flex;
-        z-index: 1000;
+        z-index: 10000;
       }
       .nav-close {
         display: block;
         position: fixed;
         right: 1.2rem;
         top: 1.2rem;
-        z-index: 1001;
-        font-size: 2.2rem;
+        z-index: 10001;
+        font-size: 2.5rem;
         color: var(--text);
         background: none;
         border: none;
         cursor: pointer;
-        width: 44px; height: 44px;
+        width: 48px; height: 48px;
         display: flex; align-items: center; justify-content: center;
       }
     }
@@ -248,6 +281,91 @@
       -webkit-flex-wrap: wrap;
       flex-wrap: wrap;
     }
+    html, body, .nav-menu {
+      overflow-x: hidden !important;
+    }
+    /* 字体、按钮、LOGO全部px单位 */
+    body, .hero-title, .hero-en, .hero-desc, .section-title, .section-en, .card-title, .card-desc, .team-name, .team-role, .team-desc, .partner-logo, .contact-card, .contact-card h3, .contact-card p, .contact-card .contact-btn, .footer-inner, .footer-logo, .footer-social {
+      font-size: 16px !important;
+    }
+    .hero-title { font-size: 28px !important; }
+    .section-title { font-size: 20px !important; }
+    .card-title { font-size: 16px !important; }
+    .hero-btn, .contact-btn { font-size: 16px !important; }
+    .nav-title { font-size: 20px !important; }
+    .nav-menu a { font-size: 20px !important; }
+    .nav-close { font-size: 32px !important; }
+    .nav-logo img { width: 48px !important; height: 22px !important; display: block; margin: 0 auto; }
+  </style>
+  <style>
+    /* 微信专用菜单弹窗样式，强制竖排block，优先级最高 */
+    @media (max-width:900px) {
+      .nav-menu {
+        display: none !important;
+        position: fixed !important;
+        left: 0 !important; top: 0 !important; width: 100vw !important; height: 100vh !important;
+        background: #fff !important;
+        z-index: 99999 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        text-align: center !important;
+      }
+      .nav-menu.open {
+        display: block !important;
+      }
+      .nav-menu .nav-logo {
+        display: block !important;
+        margin: 2.5rem auto 2.2rem auto !important;
+        text-align: center !important;
+      }
+      .nav-menu .nav-title {
+        display: block !important;
+        font-size: 20px !important;
+        color: #1A8FFF !important;
+        margin-top: 0.5rem !important;
+      }
+      .nav-menu a {
+        display: block !important;
+        width: 100vw !important;
+        font-size: 20px !important;
+        font-weight: 700 !important;
+        color: #1B263B !important;
+        padding: 1.1rem 0 !important;
+        margin: 0 auto !important;
+        border-radius: 0 !important;
+        background: none !important;
+        border: none !important;
+        text-align: center !important;
+        text-decoration: none !important;
+        box-sizing: border-box !important;
+      }
+      .nav-menu a:active {
+        background: #F0F2F5 !important;
+      }
+      .nav-hamburger {
+        display: flex !important;
+        z-index: 100000 !important;
+      }
+      .nav-close {
+        display: block !important;
+        position: fixed !important;
+        right: 1.2rem !important;
+        top: 1.2rem !important;
+        z-index: 100001 !important;
+        font-size: 2.5rem !important;
+        color: #1B263B !important;
+        background: none !important;
+        border: none !important;
+        cursor: pointer !important;
+        width: 48px !important; height: 48px !important;
+        display: flex !important; align-items: center !important; justify-content: center !important;
+      }
+      body.menu-open {
+        overflow: hidden !important;
+        position: fixed !important;
+        width: 100vw !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -262,7 +380,10 @@
         <span></span><span></span><span></span>
       </div>
       <div class="nav-menu" id="navMenu">
-        <div class="nav-logo" style="display:none;"></div>
+        <div class="nav-logo" style="display:none;">
+          <img src="logo.jpg" alt="LOGO" style="width:48px;height:22px;display:block;margin:0 auto;" />
+          <span class="nav-title">香草人科技</span>
+        </div>
         <a href="#hero" onclick="closeMenu()">首页</a>
         <a href="#about" onclick="closeMenu()">关于我们</a>
         <a href="#services" onclick="closeMenu()">业务</a>
@@ -274,16 +395,17 @@
     </div>
   </nav>
   <script>
-    // 菜单/弹窗关闭时强制body.style.overflow
     function openMenu() {
       document.getElementById('navMenu').classList.add('open');
+      document.getElementById('navMenu').querySelector('.nav-logo').style.display = 'block';
       document.getElementById('navClose').style.display = 'flex';
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('menu-open');
     }
     function closeMenu() {
       document.getElementById('navMenu').classList.remove('open');
+      document.getElementById('navMenu').querySelector('.nav-logo').style.display = 'none';
       document.getElementById('navClose').style.display = 'none';
-      document.body.style.overflow = '';
+      document.body.classList.remove('menu-open');
     }
   </script>
   <!-- Hero区 -->
